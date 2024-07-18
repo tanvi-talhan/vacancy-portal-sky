@@ -1,37 +1,43 @@
 import React from 'react';
 import "../style/CandidateList.css"
 import { Candidates } from '../pages/CandidateList';
+import { Table } from "flowbite-react";
+
 
  export const CandidateList = () => {
   return (
-    <div className="user-table-container">
-      <div className="header">
-        <h2>Users</h2>
-        <p>A list of all the users in your account including their name, title, email and role.</p>
-        <button className="add-user-btn">Add user</button>
-      </div>
-      <table className="user-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Title</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {Candidates.map((user, index) => (
-            <tr key={index}>
-              <td>{user.name}</td>
-              <td>{user.title}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td><a href={`/edit/${index}`}>Edit</a></td>
-            </tr>
+    <>
+    <div className="overflow-x-auto">
+      <Table striped>
+        <Table.Head>
+          <Table.HeadCell>Candidate name</Table.HeadCell>
+          <Table.HeadCell>Designation</Table.HeadCell>
+          <Table.HeadCell>Email</Table.HeadCell>
+          <Table.HeadCell>Role</Table.HeadCell>
+          <Table.HeadCell>
+            <span className="sr-only">Edit</span>
+          </Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+        {Candidates.map((candidate, index) => (
+          <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+            {candidate.name}
+            </Table.Cell>
+            <Table.Cell>{candidate.title}</Table.Cell>
+            <Table.Cell>{candidate.email}</Table.Cell>
+            <Table.Cell>{candidate.role}</Table.Cell>
+            <Table.Cell>
+              <a href='#' className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                Edit
+              </a>
+            </Table.Cell>
+          </Table.Row>
           ))}
-        </tbody>
-      </table>
+          
+        </Table.Body>
+      </Table>
     </div>
+    </>
   );
 };

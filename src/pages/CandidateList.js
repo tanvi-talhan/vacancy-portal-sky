@@ -1,3 +1,4 @@
+
 export const Candidates = [
     {
       name: 'Lindsay Walton',
