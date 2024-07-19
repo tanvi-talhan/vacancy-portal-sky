@@ -65,7 +65,6 @@ const Register = () => {
                                     type={showPassword ? "text" : "password"} // Toggle password visibility
                                     required
                                     autoComplete="current-password"
-                                    placeholder='Enter Password'
                                     className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border border-gray-300  sm:text-sm sm:leading-6"
                                 />
                                 <button
@@ -95,7 +94,6 @@ const Register = () => {
                                     type={showPassword ? "text" : "password"} // Toggle password visibility
                                     required
                                     autoComplete="current-password"
-                                    placeholder='Confirm Password'
                                     className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-00 border border-gray-300 sm:text-sm sm:leading-6"
                                 />
                                 <button
