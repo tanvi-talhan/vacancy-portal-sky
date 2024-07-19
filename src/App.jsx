@@ -1,12 +1,23 @@
-// import Vacancy from "./components/Vacancy"
-import Candidateinfo from "./components/Candidateinfo"
-
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Home from "./components/Home"
+import Login from "./components/Login"
+import Vacancy from "./components/Vacancy"
+import CandidateList from "./components/CandidateList"
+import Navbar from "./components/Navbar"
 
 function App() {
   return (
     <>
-      {/* <Vacancy /> */}
-      <Candidateinfo />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Login />} />
+          <Route path="/" element={<Navbar />} >
+            <Route path="/home" element={<Home />} />
+            <Route path="/add-vacancy" element={<Vacancy />} />
+            <Route path="/view-candidates" element={<CandidateList />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
