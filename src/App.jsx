@@ -1,11 +1,11 @@
-import { CandidateList } from "./components/CandidateList";
-import Login from "./components/Login";
+import Vacancy from "./components/Vacancy"
+
 
 function App() {
   return (
     <>
-      <CandidateList />
-      <Login />
+      <Vacancy />
     </>
   )
 }
+export default App
