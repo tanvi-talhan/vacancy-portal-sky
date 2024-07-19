@@ -1,14 +1,11 @@
-// import { CandidateList } from "./components/CandidateList";
-import Vacancy from "./components/Vacancy";
+import { CandidateList } from "./components/CandidateList";
+import Login from "./components/Login";
 
-
-export default function App() {
+function App() {
   return (
-   <>
-      {/* <CandidateList /> */}
-      <Vacancy />
-
-
-   </>
+    <>
+      <CandidateList />
+      <Login />
+    </>
   )
 }
