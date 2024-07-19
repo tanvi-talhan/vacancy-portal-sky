@@ -1,10 +1,15 @@
-import Vacancy from "./components/Vacancy"
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <Vacancy />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Login />}>
+            <Route path="/" element />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
