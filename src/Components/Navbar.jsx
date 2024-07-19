@@ -6,6 +6,7 @@ import { Link, Outlet } from 'react-router-dom'
 const navigation = [
   { name: 'Home', to: '/home', current: true },
   { name: 'Add Vacancy', to: '/add-vacancy', current: false },
+  { name: 'Add Candidate', to: '/add-candidate', current: false },
   { name: 'View Candidates', to: '/view-candidates', current: false },
 ]
 

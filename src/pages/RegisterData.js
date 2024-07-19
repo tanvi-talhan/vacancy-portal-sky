@@ -16,7 +16,7 @@ const handleSubmit = async (e) => { // Add submit handler
     }
 };
 
-const RegisterData{
-    [],
+// const RegisterData{
+//     [],
 
-}
+// }

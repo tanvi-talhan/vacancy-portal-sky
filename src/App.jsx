@@ -17,6 +17,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/add-vacancy" element={<Vacancy />} />
             <Route path="/view-candidates" element={<CandidateList />} />
+            {/* <Route path="/add-candidate" element={<} */}
           </Route>
         </Routes>
       </BrowserRouter>
