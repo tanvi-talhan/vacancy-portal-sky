@@ -1,43 +1,41 @@
-import React from 'react';
-import "../style/CandidateList.css"
-import { Candidates } from '../pages/CandidateList';
-import { Table } from "flowbite-react";
+import { MdDeleteForever } from "react-icons/md";
+import { candidates } from "../pages/CandidateList";
+import { FaUserEdit } from "react-icons/fa";
+import { BiShowAlt } from "react-icons/bi";
 
-
- export const CandidateList = () => {
+export const CandidateList = () => {
   return (
     <>
-    <div className="overflow-x-auto">
-      <Table striped>
-        <Table.Head>
-          <Table.HeadCell>Candidate name</Table.HeadCell>
-          <Table.HeadCell>Designation</Table.HeadCell>
-          <Table.HeadCell>Email</Table.HeadCell>
-          <Table.HeadCell>Role</Table.HeadCell>
-          <Table.HeadCell>
-            <span className="sr-only">Edit</span>
-          </Table.HeadCell>
-        </Table.Head>
-        <Table.Body className="divide-y">
-        {Candidates.map((candidate, index) => (
-          <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-            {candidate.name}
-            </Table.Cell>
-            <Table.Cell>{candidate.title}</Table.Cell>
-            <Table.Cell>{candidate.email}</Table.Cell>
-            <Table.Cell>{candidate.role}</Table.Cell>
-            <Table.Cell>
-              <a href='#' className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                Edit
-              </a>
-            </Table.Cell>
-          </Table.Row>
-          ))}
-          
-        </Table.Body>
-      </Table>
+      <div className="container mx-auto p-4">
+        <div className="bg-white shadow-2xl rounded-lg overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-green-800">
+              <tr>
+                <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Name</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Title</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Email</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Role</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Modify</th>
+              </tr>
+            </thead>
+            <tbody className="bg-green-50 divide-y divide-gray-200">
+              {candidates.map((candidate, index) => (
+                <tr key={index} className={index % 2 === 0 ? 'bg-green-100' : 'bg-green-200'}>
+                  <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.title}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.email}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.role}</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-green-600 cursor-pointer flex text-xl">
+                    <FaUserEdit className="hover:text-indigo-900" />&nbsp;&nbsp;<MdDeleteForever className="hover:text-indigo-900" />&nbsp;&nbsp;<BiShowAlt className="hover:text-indigo-900" />
+
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
     </div>
     </>
   );
 };
+export default CandidateList
