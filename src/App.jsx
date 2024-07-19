@@ -1,5 +1,5 @@
-import { CandidateList } from "./components/CandidateList";
-import Login from "./components/Login";
+import CandidateList from './Pages/CandidateList'
+import Login from './Components/Login'
 
 function App() {
   return (
