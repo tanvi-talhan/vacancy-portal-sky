@@ -1,6 +1,8 @@
 import { useState } from 'react'; // Add this import at the top
 import { GrFormView, GrFormViewHide } from "react-icons/gr";
 import logo from "../assets/common/logo.png"
+import register from "../components/Register"
+import { Link } from 'react-router-dom';
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false); // Add this state
@@ -36,7 +38,6 @@ export default function Login() {
                                 />
                             </div>
                         </div>
-
                         <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
@@ -83,9 +84,9 @@ export default function Login() {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not Registered?&nbsp;
-                        <a href="#" className="font-semibold leading-6 text-green-600 hover:text-green-500">
+                        <Link to='/register' className="font-semibold leading-6 text-green-600 hover:text-green-500">
                             Create a new account!
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </div>

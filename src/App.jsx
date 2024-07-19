@@ -4,13 +4,15 @@ import Login from "./components/Login"
 import Vacancy from "./components/Vacancy"
 import CandidateList from "./components/CandidateList"
 import Navbar from "./components/Navbar"
+import Register from "./components/Register"
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Login />} />
+          <Route path="/login" index element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/" element={<Navbar />} >
             <Route path="/home" element={<Home />} />
             <Route path="/add-vacancy" element={<Vacancy />} />
