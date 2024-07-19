@@ -1,12 +1,11 @@
-import React from 'react';
-import NavBar from './Components/Navbar'; // Check exact filename and case sensitivity
+import { CandidateList } from "./components/CandidateList";
+import Login from "./components/Login";
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-    </div>
-  );
+   <>
+   <CandidateList/>
+   <Login/>
+   </>
+  )
 }
-
-export default App;
