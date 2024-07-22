@@ -17,7 +17,7 @@ function classNames(...classes) {
 export default function Navbar() {
   return (
     <>
-      <Disclosure as="nav" className="bg-green-950 fixed w-full">
+      <Disclosure as="nav" className="bg-black">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -37,22 +37,31 @@ export default function Navbar() {
                   className="h-8 w-auto"
                 />
               </div>
-              <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.to}
-                      className={classNames(
-                        item.current ? 'hover:bg-green-300 text-green-100 hover:text-green-950' : 'text-green-100 hover:bg-green-300 hover:text-green-950',
-                        'block rounded-md px-3 py-2 text-base font-medium',
-                        item.name === 'Login' ? 'bg-green-300 hover:bg-green-500 text-green-950 hover:text-green-950' : '',
-                        'block rounded-md px-3 py-2 text-base font-medium',
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
+                <div className="flex flex-shrink-0 items-center">
+                  <img
+                    alt="Your Company"
+                    src={logo}
+                    className="h-8 w-auto"
+                  />
+                </div>
+                <div className="hidden sm:ml-6 sm:block">
+                  <div className="flex space-x-4">
+                    {navigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.to}
+                        className={classNames(
+                          item.current ? 'hover:bg-green-300 text-green-100 hover:text-green-950' : 'text-green-100 hover:bg-green-300 hover:text-green-950',
+                          'block rounded-md px-3 py-2 text-base font-medium',
+                          item.name === 'Login' ? 'bg-green-300 hover:bg-green-500 text-green-950 hover:text-green-950' : '',
+                          'block rounded-md px-3 py-2 text-base font-medium',
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

@@ -43,7 +43,7 @@ const Vacancy = () => {
                 name="jobTitle"
                 value={formData.jobTitle}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black rounded-lg"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
               />
             </div>
@@ -56,7 +56,7 @@ const Vacancy = () => {
                 name="jobDescription"
                 value={formData.jobDescription}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
               />
             </div>
@@ -69,7 +69,7 @@ const Vacancy = () => {
                 name="jobType"
                 value={formData.jobType}
                 onChange={handleChange}
-                className="w-full px-3 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
               >
                 <option value="">Select job type</option>
@@ -88,7 +88,7 @@ const Vacancy = () => {
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
               />
             </div>
@@ -102,7 +102,7 @@ const Vacancy = () => {
                 name="salary"
                 value={formData.salary}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
               />
             </div>
@@ -115,19 +115,19 @@ const Vacancy = () => {
                 id="image"
                 name="image"
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 hover:border-black"
+              className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700"
             >
               Submit
             </button>
             <button
               type="reset"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 mt-4 hover:border-black"
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 mt-4"
             >
               Reset
             </button>
