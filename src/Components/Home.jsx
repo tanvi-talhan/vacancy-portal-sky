@@ -18,7 +18,6 @@ const Card = ({ img, title, description }) => {
   );
 };
 
-
 const Home = () => {
   const cards = [
     {
