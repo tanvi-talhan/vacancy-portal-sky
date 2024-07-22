@@ -5,6 +5,7 @@ import Vacancy from "./components/Vacancy"
 import CandidateList from "./components/CandidateList"
 import Navbar from "./components/Navbar"
 import Register from "./components/Register"
+import CandidateForm from "./components/CandidateForm"
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/add-vacancy" element={<Vacancy />} />
             <Route path="/view-candidates" element={<CandidateList />} />
-            {/* <Route path="/add-candidate" element={<} */}
+            <Route path="/add-candidate" element={<CandidateForm />} />
           </Route>
         </Routes>
       </BrowserRouter>
