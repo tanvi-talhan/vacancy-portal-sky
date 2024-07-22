@@ -6,7 +6,7 @@ import { BiShowAlt } from "react-icons/bi";
 export const CandidateList = () => {
   return (
     <>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 pt-20">
         <div className="bg-white shadow-2xl rounded-lg overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-green-800">

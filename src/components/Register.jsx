@@ -2,9 +2,25 @@ import React from 'react'
 import { useState } from 'react'; // Add this import at the top
 import { GrFormView, GrFormViewHide } from "react-icons/gr";
 import logo from "../assets/common/logo.png"
+import { Link } from 'react-router-dom';
 
 const Register = () => {
-    const [showPassword, setShowPassword] = useState(false); // Add this state
+    const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({ username: '', email: '', nPass: '', cPass: '' }); // Add form data state
+
+    const handleChange = (e) => { // Add change handler
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e) => { // Add submit handler
+        e.preventDefault();
+        try {
+            await saveRegistrationData(formData); // Call the save function
+        } catch (error) {
+            console.error('Registration error:', error);
+        }
+    };    
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -32,6 +48,7 @@ const Register = () => {
                                     type="text"
                                     required
                                     autoComplete="username"
+                                    onChange={handleChange}
                                     className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -47,6 +64,7 @@ const Register = () => {
                                     type="email"
                                     required
                                     autoComplete="email"
+                                    onChange={handleChange}
                                     className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -65,6 +83,7 @@ const Register = () => {
                                     type={showPassword ? "text" : "password"} // Toggle password visibility
                                     required
                                     autoComplete="current-password"
+                                    onChange={handleChange}
                                     className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border border-gray-300  sm:text-sm sm:leading-6"
                                 />
                                 <button
@@ -94,6 +113,7 @@ const Register = () => {
                                     type={showPassword ? "text" : "password"} // Toggle password visibility
                                     required
                                     autoComplete="current-password"
+                                    onChange={handleChange}
                                     className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-00 border border-gray-300 sm:text-sm sm:leading-6"
                                 />
                                 <button
@@ -114,7 +134,7 @@ const Register = () => {
 
                         <div>
                             <button
-                                type="submit"
+                                type="submit" onSubmit={handleSubmit}
                                 className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-50 hover:text-green-600 hover:border hover:border-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Sign Up
@@ -122,12 +142,13 @@ const Register = () => {
                         </div>
                     </form>
 
-                    <p className="mt-10 text-center text-sm text-gray-500">
+
+                    <div className="mt-10 text-center text-sm text-gray-500">
                         Already Registered?&nbsp;
-                        <a href="#" className="font-semibold leading-6 text-green-600 hover:text-green-500">
+                        <Link to='/login' className="font-semibold leading-6 text-green-600 hover:text-green-500">
                             Login!
-                        </a>
-                    </p>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </>
