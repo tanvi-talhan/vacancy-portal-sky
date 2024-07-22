@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo1 from '../assets/Home/c1.jpg';
 import logo2 from '../assets/Home/c2.jpg';
 import logo3 from '../assets/Home/c3.jpg';
@@ -6,6 +6,29 @@ import logo4 from '../assets/Home/c4.jpg';
 import logo5 from '../assets/Home/c5.jpeg';
 import logo6 from '../assets/Home/c6.jpg';
 
+// SearchBar Component
+const SearchBar = ({ value, onChange }) => {
+  return (
+    <div className="flex justify-center mt-4">
+      <div className="flex items-center bg-green-950 border rounded-md p-1 w-60">
+        <span className="text-green-500 mr-2 text-xl">&#x1F50D;</span> {/* Adjusted size */}
+        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+        Vacancies
+</span>
+        <input
+          type="text"
+          placeholder=""
+          value={value}
+          onChange={onChange}
+          className="p-1 outline-none text-sm w-full bg-transparent text-white" // Adjusted padding and font size
+        />
+      </div>
+    </div>
+  );
+};
+
+
+// Card Component
 const Card = ({ img, title, description }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -18,7 +41,10 @@ const Card = ({ img, title, description }) => {
   );
 };
 
+// Home Component
 const Home = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   const cards = [
     {
       img: (
@@ -88,11 +114,16 @@ const Home = () => {
     },
   ];
 
+  const filteredCards = cards.filter(card =>
+    card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container mx-auto py-12">
-      <h1 className="text-3xl text-center font-bold text-green-600 mb-8">Updated Vacancies Unleashed!</h1>
-      <div className="grid grid-cols-1 gap-2">
-        {cards.map((card, index) => (
+      <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <div className="grid grid-cols-1 gap-2 mt-8">
+        {filteredCards.map((card, index) => (
           <Card key={index} img={card.img} title={card.title} description={card.description} />
         ))}
       </div>
