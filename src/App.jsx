@@ -4,7 +4,6 @@ import Login from "./components/Login"
 import Vacancy from "./components/Vacancy"
 import CandidateList from "./components/CandidateList"
 import Navbar from "./components/Navbar"
-import Register from "./components/Register"
 import CandidateForm from "./components/CandidateForm"
 
 function App() {
@@ -12,13 +11,12 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" index element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route index element={<Login />} />
           <Route path="/" element={<Navbar />} >
             <Route path="/home" element={<Home />} />
             <Route path="/add-vacancy" element={<Vacancy />} />
-            <Route path="/view-candidates" element={<CandidateList />} />
             <Route path="/add-candidate" element={<CandidateForm />} />
+            <Route path="/view-candidates" element={<CandidateList />} />
           </Route>
         </Routes>
       </BrowserRouter>

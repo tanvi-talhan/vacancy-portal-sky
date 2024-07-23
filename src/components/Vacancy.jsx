@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import image from "../assets/skymentor portal.png";
+import image from '../assets/vacancy-bg.png';
 
 const Vacancy = () => {
   const [formData, setFormData] = useState({
@@ -28,10 +28,11 @@ const Vacancy = () => {
   return (
     <>
       <h2 className="text-2xl font-extrabold mb-6 text-gray-900 text-center">Add Vacancy</h2>
-      <div className="grid grid-cols-2 p-8">
-        <div className=" h-full items-center justify-center bg-cover bg-center rounded-lg m-5" style={{ backgroundImage: `url(${image})` }}>
-        </div>
-        <div className="mx-28 grid grid-cols-1 ">
+      <div
+        className="flex items-center justify-center h-screen w-screen bg-cover bg-no-repeat"
+        style={{ backgroundImage: `url(${image})` }}
+      >
+        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg ml-60">
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 font-medium mb-2" htmlFor="jobTitle">
@@ -56,7 +57,7 @@ const Vacancy = () => {
                 name="jobDescription"
                 value={formData.jobDescription}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               />
             </div>
@@ -69,7 +70,7 @@ const Vacancy = () => {
                 name="jobType"
                 value={formData.jobType}
                 onChange={handleChange}
-                className="w-full px-3 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               >
                 <option value="">Select job type</option>
@@ -88,7 +89,7 @@ const Vacancy = () => {
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               />
             </div>
@@ -102,7 +103,7 @@ const Vacancy = () => {
                 name="salary"
                 value={formData.salary}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               />
             </div>
@@ -115,7 +116,7 @@ const Vacancy = () => {
                 id="image"
                 name="image"
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-black  rounded-lg"
+                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               />
             </div>
