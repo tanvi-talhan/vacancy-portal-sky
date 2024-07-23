@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 const CandidateForm = () => {
     const [formData, setFormData] = useState({
         firstName: '',
