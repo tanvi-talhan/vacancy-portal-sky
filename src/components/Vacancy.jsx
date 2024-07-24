@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import image from '../assets/vacancy-bg.png';
-import Footer from './Footer'
+import Footer from './Footer';
 
 const Vacancy = () => {
   const [formData, setFormData] = useState({
@@ -12,31 +12,12 @@ const Vacancy = () => {
     image: null,
   });
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-  };
-
-  // State for image handling
-  const [groupImage, setGroupImage] = useState(null);
-  const [fileName, setFileName] = useState('');
-  const [imagePreviewURL, setImagePreviewURL] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setGroupImage(file);
-      setFileName(file.name); // Update file name state
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreviewURL(reader.result); // Update image preview URL state
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const handleSubmit = (e) => {
@@ -49,10 +30,10 @@ const Vacancy = () => {
   return (
     <>
       <div
-        className="flex items-center justify-center h-screen bg-cover bg-no-repeat"
+        className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat opacity-85"
         style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
       >
-        <div className="bg-white p-8 ml-16 rounded-lg shadow-md w-full max-w-2xl">
+        <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-md w-full max-w-2xl">
           <h1 className="text-2xl font-bold mb-4 uppercase text-center">Add a Vacancy</h1>
           <hr className="mb-4" />
           <form onSubmit={handleSubmit}>
@@ -102,9 +83,9 @@ const Vacancy = () => {
                 required
               />
             </div>
-            <div className="mb-4 flex">
-              <div className="w-1/2 mr-2">
-                <label className="text-gray-700 font-medium mb-2" htmlFor="location">
+            <div className="mb-4 md:flex md:space-x-4">
+              <div className="w-full mb-4 md:mb-0">
+                <label className="block text-gray-700 font-medium mb-2" htmlFor="location">
                   Location
                 </label>
                 <input
@@ -113,12 +94,12 @@ const Vacancy = () => {
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
-                  className="px-3 py-2 border border-gray-300 rounded-lg w-full"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                   required
                 />
               </div>
-              <div className="w-1/2 ml-2">
-                <label className="text-gray-700 font-medium mb-2" htmlFor="salary">
+              <div className="w-full">
+                <label className="block text-gray-700 font-medium mb-2" htmlFor="salary">
                   Expected Salary
                 </label>
                 <input
@@ -127,12 +108,13 @@ const Vacancy = () => {
                   name="salary"
                   value={formData.salary}
                   onChange={handleChange}
-                  className="px-3 py-2 border border-gray-300 rounded-lg w-full"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                   required
                 />
               </div>
             </div>
 
+            {/* Image upload section commented out as per your original code
             <label htmlFor="image-upload" className='text-gray-700 font-medium'>Upload Image</label>
             <div className="flex justify-center items-center border-dashed border-2 border-gray-300 rounded p-4 text-center cursor-pointer mb-4 mt-2">
               <label htmlFor="file-upload" className="text-blue-500">
@@ -149,10 +131,9 @@ const Vacancy = () => {
                   fileName || "Add file or drop files here"
                 )}
               </label>
-            </div>
+            </div> */}
 
-
-            <div className='flex gap-3'>
+            <div className="flex gap-3">
               <button
                 type="submit"
                 className="w-1/2 bg-green-500 text-white font-bold py-2 px-4 rounded-lg border hover:border-green-800 hover:text-green-600 hover:bg-transparent"
@@ -166,11 +147,10 @@ const Vacancy = () => {
                 Reset
               </button>
             </div>
-
           </form>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
