@@ -5,8 +5,6 @@ import logo3 from '../assets/Home/c3.jpg';
 import logo4 from '../assets/Home/c4.jpg';
 import logo5 from '../assets/Home/c5.jpeg';
 import logo6 from '../assets/Home/c6.jpg';
-import '../index.css'; // Ensure this path is correct
-
 
 // SearchBar Component
 const SearchBar = ({ value, onChange }) => {
@@ -123,7 +121,6 @@ const Home = () => {
   );
 
   return (
-    <>    
     <div className="container mx-auto py-12">
 
       <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
@@ -137,8 +134,6 @@ const Home = () => {
         ))}
       </div>
     </div>
-    </>
-
   );
 };
 
