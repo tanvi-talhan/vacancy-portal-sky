@@ -58,7 +58,6 @@ const Vacancy = () => {
                 value={formData.jobDescription}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               />
             </div>
@@ -72,7 +71,6 @@ const Vacancy = () => {
                 value={formData.jobType}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               >
                 <option value="">Select job type</option>
@@ -92,7 +90,6 @@ const Vacancy = () => {
                 value={formData.location}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               />
             </div>
@@ -107,7 +104,6 @@ const Vacancy = () => {
                 value={formData.salary}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               />
             </div>
@@ -121,7 +117,6 @@ const Vacancy = () => {
                 name="image"
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                className="w-full px-3 py-2 border border-black rounded-lg"
                 required
               />
             </div>
