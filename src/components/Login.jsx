@@ -1,11 +1,35 @@
-import { useState } from 'react'; // Add this import at the top
+import React, { useState } from 'react';
 import { GrFormView, GrFormViewHide } from "react-icons/gr";
-import logo from "../assets/common/logo.png"
-import register from "./Register"
-import { Link } from 'react-router-dom';
+import logo from "../assets/common/logo.png";
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from '../../firebase/firebaseConfig';  
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login() {
-    const [showPassword, setShowPassword] = useState(false); // Add this state
+    const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const navigate = useNavigate(); 
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { email, password } = formData;
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            console.log('User logged in:', user);
+            navigate('/home'); // Redirect to home page after successful login
+        } catch (error) {
+            console.error('Login error:', error.message);
+        }
+    };
 
     return (
         <>
@@ -22,7 +46,7 @@ export default function Login() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
@@ -34,6 +58,7 @@ export default function Login() {
                                     type="email"
                                     required
                                     autoComplete="email"
+                                    onChange={handleChange}
                                     className="block w-full rounded-md border-green-500 border-2 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -49,18 +74,19 @@ export default function Login() {
                                     </a>
                                 </div>
                             </div>
-                            <div className="mt-2 relative"> {/* Add relative positioning */}
+                            <div className="mt-2 relative">
                                 <input
                                     id="password"
                                     name="password"
-                                    type={showPassword ? "text" : "password"} // Toggle password visibility
+                                    type={showPassword ? "text" : "password"}
                                     required
                                     autoComplete="current-password"
+                                    onChange={handleChange}
                                     className="block w-full rounded-md border-2 border-green-500 p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)} // Toggle function
+                                    onClick={() => setShowPassword(!showPassword)}
                                     className="absolute inset-y-0 right-0 flex items-center pr-3"
                                 >
                                     {showPassword ? (

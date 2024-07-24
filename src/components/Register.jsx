@@ -1,26 +1,41 @@
-import React from 'react'
-import { useState } from 'react'; // Add this import at the top
-import { GrFormView, GrFormViewHide } from "react-icons/gr";
-import logo from "../assets/common/logo.png"
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { GrFormView, GrFormViewHide } from 'react-icons/gr';
+import logo from '../assets/common/logo.png';
+import { auth } from '../../firebase/firebaseConfig'; 
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState({ username: '', email: '', nPass: '', cPass: '' }); // Add form data state
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
+    const navigate = useNavigate(); 
 
-    const handleChange = (e) => { // Add change handler
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => { // Add submit handler
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const { email, password } = formData;
         try {
-            await saveRegistrationData(formData); // Call the save function
+            if (formData.password !== formData.confirmPassword) {
+                throw new Error("Passwords do not match.");
+            }
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            console.log('User created:', user);
+            navigate('/home'); 
         } catch (error) {
-            console.error('Registration error:', error);
+            console.error('Registration error:', error.message);
         }
-    };    
+    };
+
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -36,7 +51,7 @@ const Register = () => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
                                 Enter username
@@ -53,6 +68,7 @@ const Register = () => {
                                 />
                             </div>
                         </div>
+
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
@@ -76,19 +92,19 @@ const Register = () => {
                                     New Password
                                 </label>
                             </div>
-                            <div className="mt-2 relative"> {/* Add relative positioning */}
+                            <div className="mt-2 relative">
                                 <input
                                     id="password"
                                     name="password"
-                                    type={showPassword ? "text" : "password"} // Toggle password visibility
+                                    type={showPassword ? "text" : "password"}
                                     required
-                                    autoComplete="current-password"
+                                    autoComplete="new-password"
                                     onChange={handleChange}
-                                    className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border border-gray-300  sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border border-gray-300 sm:text-sm sm:leading-6"
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)} // Toggle function
+                                    onClick={() => setShowPassword(!showPassword)}
                                     className="absolute inset-y-0 right-0 flex items-center pr-3"
                                 >
                                     {showPassword ? (
@@ -102,23 +118,23 @@ const Register = () => {
 
                         <div>
                             <div className="flex items-center justify-between">
-                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="confirmPassword" className="block text-sm font-medium leading-6 text-gray-900">
                                     Confirm Password
                                 </label>
                             </div>
-                            <div className="mt-2 relative"> {/* Add relative positioning */}
+                            <div className="mt-2 relative">
                                 <input
-                                    id="password"
-                                    name="password"
-                                    type={showPassword ? "text" : "password"} // Toggle password visibility
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    type={showPassword ? "text" : "password"}
                                     required
-                                    autoComplete="current-password"
+                                    autoComplete="new-password"
                                     onChange={handleChange}
-                                    className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-00 border border-gray-300 sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-md p-2 py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border border-gray-300 sm:text-sm sm:leading-6"
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)} // Toggle function
+                                    onClick={() => setShowPassword(!showPassword)}
                                     className="absolute inset-y-0 right-0 flex items-center pr-3"
                                 >
                                     {showPassword ? (
@@ -130,18 +146,15 @@ const Register = () => {
                             </div>
                         </div>
 
-
-
                         <div>
                             <button
-                                type="submit" onSubmit={handleSubmit}
+                                type="submit"
                                 className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-50 hover:text-green-600 hover:border hover:border-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Sign Up
                             </button>
                         </div>
                     </form>
-
 
                     <div className="mt-10 text-center text-sm text-gray-500">
                         Already Registered?&nbsp;
@@ -152,7 +165,7 @@ const Register = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Register
+export default Register;
