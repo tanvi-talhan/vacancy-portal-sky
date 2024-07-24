@@ -21,7 +21,7 @@ const SearchBar = ({ value, onChange }) => {
               placeholder="search for vacancies..."
               value={value}
               onChange={onChange}
-              className="p-1 outline-none text-sm w-full bg-transparent text-black"
+              className="p-1 outline-none text-sm w-full bg-transparent text-green-950"
             />
             <span className="relative right-2 top-3 transform -translate-y-1/2 text-green-500 text-xl">&#x1F50D;</span>
           </div>
@@ -30,7 +30,6 @@ const SearchBar = ({ value, onChange }) => {
     </div>
   );
 };
-
 
 // Card Component
 const Card = ({ img, title, description }) => {
