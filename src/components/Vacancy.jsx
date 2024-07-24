@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import image from '../assets/vacancy-bg.png';
+import Footer from './Footer'
 
 const Vacancy = () => {
   const [formData, setFormData] = useState({
@@ -169,6 +170,7 @@ const Vacancy = () => {
           </form>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

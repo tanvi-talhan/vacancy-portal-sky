@@ -2,6 +2,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { candidates } from "../pages/CandidateList";
 import { FaUserEdit } from "react-icons/fa";
 import { BiShowAlt } from "react-icons/bi";
+import Footer from "./Footer"
 
 export const CandidateList = () => {
   return (
@@ -35,6 +36,7 @@ export const CandidateList = () => {
           </table>
         </div>
     </div>
+    <Footer/>
     </>
   );
 };

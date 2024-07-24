@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from "./Footer"
 
 const CandidateForm = () => {
     const [formData, setFormData] = useState({
@@ -48,6 +49,7 @@ const CandidateForm = () => {
     };
 
     return (
+        <>
         <div className="flex items-center justify-center h-screen">
             <div className="max-w-3xl w-full bg-black rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-bold mb-2 text-center text-white uppercase">Candidate Detail Form</h2>
@@ -212,6 +214,8 @@ const CandidateForm = () => {
                 </form>
             </div>
         </div>
+        <Footer/>
+        </>
     );
 };
 
