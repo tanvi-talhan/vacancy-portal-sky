@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/Home'
-import Vacancy from './Vacancy';
-import CandidateForm from './CandidateForm';
-import CandidateList from './CandidateList';
-import Logout from './Logout';
+import Vacancy from './components/Vacancy';
+import CandidateForm from './components/CandidateForm';
+import CandidateList from './components/CandidateList';
+import Logout from './components/Logout';
 import Login from './components/Login';
 import Register from './components/Register';
 import Navbar from './components/Navbar';
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Define the /login route */}
-        <Route path="/login" element={<Login />} />
+        <Route index path="/login" element={<Login />} />
 
         {/* Define the /register route */}
         <Route path="/register" element={<Register />} />
