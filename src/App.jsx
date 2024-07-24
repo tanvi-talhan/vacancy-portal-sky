@@ -13,14 +13,14 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route index path="/login" element={<Login />} />
+          <Route index path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Navbar />} >
+          <Route path="/nav" element={<Navbar />} >
             <Route path="/home" element={<Home />} />
             <Route path="/add-vacancy" element={<Vacancy />} />
             <Route path="/add-candidate" element={<CandidateForm />} />
             <Route path="/view-candidates" element={<CandidateList />} />
-            <Route path="/logout" element={<Logout />} />
+            <Route path="/logout`" element={<Logout />} />
           </Route>
         </Routes>
       </BrowserRouter>
