@@ -5,7 +5,7 @@ import logo3 from '../assets/Home/c3.jpg';
 import logo4 from '../assets/Home/c4.jpg';
 import logo5 from '../assets/Home/c5.jpeg';
 import logo6 from '../assets/Home/c6.jpg';
-import '../index.css'; // Ensure this path is correct
+import '../index.css'; 
 import Footer from './Footer'
 
 
@@ -21,7 +21,7 @@ const SearchBar = ({ value, onChange }) => {
               placeholder="search for vacancies..."
               value={value}
               onChange={onChange}
-              className="p-1 outline-none text-sm w-full bg-transparent text-white"
+              className="p-1 outline-none text-sm w-full bg-transparent text-black"
             />
             <span className="relative right-2 top-3 transform -translate-y-1/2 text-green-500 text-xl">&#x1F50D;</span>
           </div>
