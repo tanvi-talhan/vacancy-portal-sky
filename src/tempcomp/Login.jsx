@@ -1,7 +1,7 @@
 import { useState } from 'react'; // Add this import at the top
 import { GrFormView, GrFormViewHide } from "react-icons/gr";
 import logo from "../assets/common/logo.png"
-import register from "../components/Register"
+import register from "./Register"
 import { Link } from 'react-router-dom';
 
 export default function Login() {
