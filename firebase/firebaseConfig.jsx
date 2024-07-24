@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBmyLNKMBFtx9H6cr9TFhQAYXT5E7rIPo4",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "vacancy-portal-e5e55.firebaseapp.com",
   projectId: "vacancy-portal-e5e55",
   storageBucket: "vacancy-portal-e5e55.appspot.com",
@@ -13,6 +14,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 export { auth };
+export { db };
 export default app;
