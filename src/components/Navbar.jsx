@@ -54,7 +54,6 @@ export default function Navbar() {
                         {item.name}
                       </Link>
                     ))}
-                  {/* sanjana */}
                 </div>
               </div>
             </div>
