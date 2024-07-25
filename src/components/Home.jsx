@@ -24,14 +24,17 @@ const SearchBar = ({ value, onChange }) => (
   </div>
 );
 
-const Card = ({ jobTitle, jobDescription, jobType, location, salary }) => (
+const Card = ({ companyName, designation, jobDescription, jobType, location, salary, hrEmail, hrContact }) => (
   <div className="bg-white rounded-lg shadow-md p-6 mb-4">
     <div className="flex flex-col items-center">
-      <h2 className="mt-4 text-xl text-center font-bold text-gray-800">{jobTitle}</h2>
+      <h2 className="mt-4 text-xl text-center font-bold text-gray-800">{companyName}</h2>
+      <h2 className="mt-4 text-xl text-center font-bold text-gray-800">{designation}</h2>
       <p className="mt-2 text-gray-600 text-sm">{jobDescription}</p>
       <p className="mt-2 text-gray-600 text-sm"><strong>Type:</strong> {jobType}</p>
       <p className="mt-2 text-gray-600 text-sm"><strong>Location:</strong> {location}</p>
       <p className="mt-2 text-gray-600 text-sm"><strong>Salary:</strong> {salary}</p>
+      <p className="mt-2 text-gray-600 text-sm"><strong>HR Email:</strong> {hrEmail}</p>
+      <p className="mt-2 text-gray-600 text-sm"><strong>HR Contact:</strong> {hrContact}</p>
     </div>
   </div>
 );
@@ -51,7 +54,8 @@ const Home = () => {
   }, []);
 
   const filteredVacancies = vacancies.filter(vacancy =>
-    vacancy.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    vacancy.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    vacancy.designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
     vacancy.jobDescription.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -66,11 +70,14 @@ const Home = () => {
           {filteredVacancies.map((vacancy, index) => (
             <Card 
               key={index} 
-              jobTitle={vacancy.jobTitle} 
+              companyName={vacancy.companyName}
+              designation={vacancy.designation} 
               jobDescription={vacancy.jobDescription} 
               jobType={vacancy.jobType}
               location={vacancy.location}
               salary={vacancy.salary} 
+              hrEmail={vacancy.hrEmail}
+              hrContact={vacancy.hrContact} 
             />
           ))}
         </div>
