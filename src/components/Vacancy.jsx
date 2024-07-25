@@ -7,11 +7,14 @@ import { useNavigate } from 'react-router-dom';
 
 const Vacancy = () => {
   const [formData, setFormData] = useState({
-    jobTitle: '',
+    companyName: '',
+    designation: '',
     jobDescription: '',
     jobType: '',
     location: '',
     salary: '',
+    hrEmail: '',
+    hrContact: ''
   });
 
   const navigate = useNavigate();
@@ -35,11 +38,14 @@ const Vacancy = () => {
       navigate('/nav/home');
 
       setFormData({
-        jobTitle: '',
+        companyName: '',
+        designation: '',
         jobDescription: '',
         jobType: '',
         location: '',
         salary: '',
+        hrEmail: '',
+        hrContact: ''
       });
     } catch (error) {
       console.error('Error adding vacancy:', error);
@@ -49,7 +55,7 @@ const Vacancy = () => {
   return (
     <>
       <div
-        className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat opacity-85"
+        className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat opacity-85 py-5"
         style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
       >
         <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-md w-full max-w-2xl">
@@ -57,14 +63,28 @@ const Vacancy = () => {
           <hr className="mb-4" />
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="jobTitle">
-                Job Title
+              <label className="block text-gray-700 font-medium mb-2" htmlFor="companyName">
+                Company Name
               </label>
               <input
                 type="text"
-                id="jobTitle"
-                name="jobTitle"
-                value={formData.jobTitle}
+                id="companyName"
+                name="companyName"
+                value={formData.companyName}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-2" htmlFor="designation">
+                Designation
+              </label>
+              <input
+                type="text"
+                id="designation"
+                name="designation"
+                value={formData.designation}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
@@ -132,6 +152,36 @@ const Vacancy = () => {
                 />
               </div>
             </div>
+            <div className="mb-4 md:flex md:space-x-4">
+              <div className="w-full mb-4 md:mb-0">
+                <label className="block text-gray-700 font-medium mb-2" htmlFor="hrEmail">
+                  HR Email
+                </label>
+                <input
+                  type="email"
+                  id="hrEmail"
+                  name="hrEmail"
+                  value={formData.hrEmail}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+              <div className="w-full">
+                <label className="block text-gray-700 font-medium mb-2" htmlFor="hrContact">
+                  HR Contact
+                </label>
+                <input
+                  type="text"
+                  id="hrContact"
+                  name="hrContact"
+                  value={formData.hrContact}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+            </div>
 
             <div className="flex gap-3">
               <button
@@ -144,7 +194,7 @@ const Vacancy = () => {
                 type="reset"
                 className="w-1/2 bg-blue-500 text-white py-2 px-4 font-bold rounded-lg border hover:border-blue-800 hover:text-blue-600 hover:bg-transparent"
                 onClick={() => setFormData({
-                  jobTitle: '',
+                  designation: '',
                   jobDescription: '',
                   jobType: '',
                   location: '',
