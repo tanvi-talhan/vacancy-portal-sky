@@ -25,7 +25,7 @@ export default function Login() {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             console.log('User logged in:', user);
-            navigate('/home'); // Redirect to home page after successful login
+            navigate('/nav/home'); // Redirect to home page after successful login
         } catch (error) {
             console.error('Login error:', error.message);
         }
