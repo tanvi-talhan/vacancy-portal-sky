@@ -4,11 +4,11 @@ import logo from '../assets/common/logo.png'
 import { Link, Outlet } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Home', to: '/home', current: true },
-  { name: 'Add Vacancy', to: '/add-vacancy', current: false },
-  { name: 'Add Candidate', to: '/add-candidate', current: false },
-  { name: 'View Candidates', to: '/view-candidates', current: false },
-  { name: 'Logout', to: '/logout', current: false },
+  { name: 'Home', to: '/nav/home', current: true },
+  { name: 'Add Vacancy', to: '/nav/add-vacancy', current: false },
+  { name: 'Add Candidate', to: '/nav/add-candidate', current: false },
+  { name: 'View Candidates', to: '/nav/view-candidates', current: false },
+  { name: 'Logout', to: '/nav/logout', current: false },
 ]
 
 function classNames(...classes) {

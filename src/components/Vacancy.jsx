@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import image from '../assets/vacancy-bg.png';
 import Footer from './Footer';
+import { db } from '../../firebase/firebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const Vacancy = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +12,9 @@ const Vacancy = () => {
     jobType: '',
     location: '',
     salary: '',
-    image: null,
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,11 +24,26 @@ const Vacancy = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted', formData);
-    // Also handle image upload logic if needed
+    try {
+      await addDoc(collection(db, 'vacancies'), {
+        ...formData,
+        timestamp: new Date()
+      });
+      console.log('Vacancy added:', formData);
+      navigate('/nav/home');
+
+      setFormData({
+        jobTitle: '',
+        jobDescription: '',
+        jobType: '',
+        location: '',
+        salary: '',
+      });
+    } catch (error) {
+      console.error('Error adding vacancy:', error);
+    }
   };
 
   return (
@@ -114,25 +133,6 @@ const Vacancy = () => {
               </div>
             </div>
 
-            {/* Image upload section commented out as per your original code
-            <label htmlFor="image-upload" className='text-gray-700 font-medium'>Upload Image</label>
-            <div className="flex justify-center items-center border-dashed border-2 border-gray-300 rounded p-4 text-center cursor-pointer mb-4 mt-2">
-              <label htmlFor="file-upload" className="text-blue-500">
-                <input
-                  id="file-upload"
-                  onChange={handleImageChange}
-                  type="file"
-                  className="hidden"
-                  required
-                />
-                {imagePreviewURL ? (
-                  <img src={imagePreviewURL} alt="Group" className="w-auto h-20" />
-                ) : (
-                  fileName || "Add file or drop files here"
-                )}
-              </label>
-            </div> */}
-
             <div className="flex gap-3">
               <button
                 type="submit"
@@ -143,6 +143,13 @@ const Vacancy = () => {
               <button
                 type="reset"
                 className="w-1/2 bg-blue-500 text-white py-2 px-4 font-bold rounded-lg border hover:border-blue-800 hover:text-blue-600 hover:bg-transparent"
+                onClick={() => setFormData({
+                  jobTitle: '',
+                  jobDescription: '',
+                  jobType: '',
+                  location: '',
+                  salary: '',
+                })}
               >
                 Reset
               </button>
