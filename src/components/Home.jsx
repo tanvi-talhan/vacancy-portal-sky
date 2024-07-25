@@ -5,6 +5,7 @@ import logo3 from '../assets/Home/c3.jpg';
 import logo4 from '../assets/Home/c4.jpg';
 import logo5 from '../assets/Home/c5.jpeg';
 import logo6 from '../assets/Home/c6.jpg';
+import bg from '../assets/bg.jpg';
 import '../index.css'; 
 import Footer from './Footer'
 
@@ -12,7 +13,7 @@ import Footer from './Footer'
 // SearchBar Component
 const SearchBar = ({ value, onChange }) => {
   return (
-    <div className="relative mt-4">
+    <div className="relative mt-4 w-full h-full" src={bg}>
       <div className="flex justify-center">
         <div className="max-w-9xl w-full mx-6 sm:mx-6 md:mx-16 lg:mx-80">
           <div className="flex items-center bg-green-50 border rounded-full p-2">
