@@ -4,6 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebaseConfig';
 import '../index.css'; 
 import Footer from './Footer';
+import background from '../assets/vacancy-bg.png'
 
 const SearchBar = ({ value, onChange }) => (
   <div className="relative mt-4">
@@ -54,14 +55,14 @@ const Home = () => {
   }, []);
 
   const filteredVacancies = vacancies.filter(vacancy =>
-    vacancy.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    vacancy.designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    // vacancy.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    // vacancy.designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
     vacancy.jobDescription.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <>
-      <div className="container mx-auto py-12">
+      <div className="container mx-auto py-12" style={{ backgroundImage: `url(${background})` }}>
         <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <div className="grid grid-cols-1 mt-8">
           <span className="sticky top-0 ml-4 sm:ml-8 md:ml-24 lg:ml-60 xl:ml-96 bg-blue-200 px-2 py-1 text-lg font-medium text-blue-700 rounded-full text-gradient-my text-shadow-custom animate-pulse">
