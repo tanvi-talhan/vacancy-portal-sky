@@ -8,6 +8,7 @@ import Logout from './components/Logout';
 import Login from './components/Login';
 import Register from './components/Register';
 import Navbar from './components/Navbar';
+import EditVacancy from './components/EditVacancy';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="add-vacancy" element={<Vacancy />} />
           <Route path="add-candidate" element={<CandidateForm />} />
           <Route path="view-candidates" element={<CandidateList />} />
+          <Route path="edit/:id" element={<EditVacancy />} />
           <Route path="logout" element={<Logout />} />
         </Route>
       </Routes>
