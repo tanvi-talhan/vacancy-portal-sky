@@ -55,10 +55,10 @@ const Vacancy = () => {
   return (
     <>
       <div
-        className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat opacity-85 py-5"
+        className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat bg-opacity-50 py-5"
         style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
       >
-        <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-md w-full max-w-2xl">
+        <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-2xl w-full max-w-2xl bg-opacity-50">
           <h1 className="text-2xl font-bold mb-4 uppercase text-center">Add a Vacancy</h1>
           <hr className="mb-4" />
           <form onSubmit={handleSubmit}>
@@ -186,13 +186,13 @@ const Vacancy = () => {
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="w-1/2 bg-green-500 text-white font-bold py-2 px-4 rounded-lg border hover:border-green-800 hover:text-green-600 hover:bg-transparent"
+                className="w-1/2  hover:text-white font-bold py-2 px-4 rounded-lg border border-green-800 text-green-600 bg-transparent hover:bg-green-500"
               >
                 Submit
               </button>
               <button
                 type="reset"
-                className="w-1/2 bg-blue-500 text-white py-2 px-4 font-bold rounded-lg border hover:border-blue-800 hover:text-blue-600 hover:bg-transparent"
+                className="w-1/2 hover:bg-blue-500 hover:text-white py-2 px-4 font-bold rounded-lg border border-blue-800 text-blue-600 bg-transparent"
                 onClick={() => setFormData({
                   designation: '',
                   jobDescription: '',

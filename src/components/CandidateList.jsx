@@ -1,14 +1,14 @@
 import { MdDeleteForever } from "react-icons/md";
-import { candidates } from "../pages/CandidateList";
 import { FaUserEdit } from "react-icons/fa";
 import { BiShowAlt } from "react-icons/bi";
-import Footer from "./Footer"
+import { candidates } from "../pages/CandidateList";
+import Footer from "./Footer";
 
 export const CandidateList = () => {
   return (
     <>
-      <div className="container mx-auto p-4 pt-12 mb-8">
-        <div className="bg-white shadow-2xl rounded-3xl overflow-x-auto">
+      <div className="container mx-auto p-4 pt-12 bg-gradient-to-r from-green-100 via-green-200 to-green-300 max-w-full">
+        <div className="shadow-2xl rounded-3xl overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-green-800">
               <tr>
@@ -16,6 +16,7 @@ export const CandidateList = () => {
                 <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Title</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Email</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Role</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Download CV</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Modify</th>
               </tr>
             </thead>
@@ -26,18 +27,23 @@ export const CandidateList = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.title}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.email}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.role}</td>
+                  <td className="px-6 py-4 whitespace-nowrap underline text-blue-600 font-medium">
+                    <a href={candidate.resume} download={`${candidate.name}-Resume.pdf`}>View</a>
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap font-medium text-green-600 cursor-pointer flex text-xl">
-                    <FaUserEdit className="hover:text-indigo-900" />&nbsp;&nbsp;<MdDeleteForever className="hover:text-indigo-900" />&nbsp;&nbsp;<BiShowAlt className="hover:text-indigo-900" />
-
+                    <FaUserEdit className="hover:text-indigo-900" />&nbsp;&nbsp;
+                    <MdDeleteForever className="hover:text-indigo-900" />&nbsp;&nbsp;
+                    <BiShowAlt className="hover:text-indigo-900" />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-    </div>
-    <Footer/>
+      </div>
+      <Footer />
     </>
   );
 };
-export default CandidateList
+
+export default CandidateList;

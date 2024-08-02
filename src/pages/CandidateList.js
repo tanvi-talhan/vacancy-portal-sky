@@ -1,9 +1,12 @@
+import resume from '../assets/cv.pdf';
+
 export const candidates = [
   {
     name: 'Lindsay Walton',
     title: 'Front-end Developer',
     email: 'lindsay.walton@example.com',
-    role: 'Member'
+    role: 'Member',
+    resume: { resume },
   },
   {
     name: 'Courtney Henry',
