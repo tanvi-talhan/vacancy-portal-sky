@@ -3,7 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebaseConfig';
 import '../index.css';
 import Footer from './Footer';
-import bgimg from '../assets/common/bg2.jpg'
+import bgimg from '../assets/common/bg3.jpg'
 import { PiBuildingApartmentFill, PiCurrencyInrDuotone } from "react-icons/pi";
 import { RiHandbagLine } from "react-icons/ri";
 import { IoLocation } from "react-icons/io5";
@@ -15,7 +15,7 @@ import { TiDelete } from "react-icons/ti";
 const SearchBar = ({ value, onChange }) => (
   <div className="relative mt-4">
     <div className="flex justify-center">
-      <div className="max-w-12xl w-full mx-6 sm:mx-6 md:mx-16 lg:mx-80">
+      <div className="w-full mx-6 sm:w-4/5 md:w-3/4 lg:w-full xl:w-full">
         <div className="flex items-center bg-green-100 border rounded-full p-2">
           <input
             type="text"
