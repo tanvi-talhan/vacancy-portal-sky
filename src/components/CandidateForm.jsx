@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { db, storage } from '../../firebase/firebaseConfig'; // Import the db and storage from your firebase.js
+import { collection, addDoc } from "firebase/firestore"; 
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Footer from "./Footer";
 import Bgimage from '../assets/common/bg-img.png';
+import { useNavigate } from 'react-router-dom';
 
 const CandidateForm = () => {
     const [formData, setFormData] = useState({
@@ -17,6 +21,8 @@ const CandidateForm = () => {
 
     const [fileName, setFileName] = useState('');
     const [imagePreviewURL, setImagePreviewURL] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -44,9 +50,48 @@ const CandidateForm = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData); // Handle form submission logic
+
+        try {
+            // Upload CV to Firebase Storage
+            const storageRef = ref(storage, `cvs/${formData.cv.name}`);
+            await uploadBytes(storageRef, formData.cv);
+            const cvURL = await getDownloadURL(storageRef);
+
+            // Save form data to Firestore
+            await addDoc(collection(db, "candidates"), {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                contact: formData.contact,
+                gender: formData.gender,
+                job_location: formData.job_location,
+                specialization: formData.specialization,
+                salaryExpectation: formData.salaryExpectation,
+                cv: cvURL
+            });
+
+            console.log("Document successfully written!");
+            // Reset form
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                contact: '',
+                gender: '',
+                job_location: '',
+                specialization: '',
+                salaryExpectation: '',
+                cv: null
+            });
+            setFileName('');
+            setImagePreviewURL(null);
+            navigate('/nav/view-candidates');
+
+        } catch (error) {
+            console.error("Error writing document: ", error);
+        }
     };
 
     return (
@@ -65,7 +110,7 @@ const CandidateForm = () => {
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black  "
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
@@ -77,7 +122,7 @@ const CandidateForm = () => {
                                     name="lastName"
                                     value={formData.lastName}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black  "
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
@@ -91,7 +136,7 @@ const CandidateForm = () => {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black  "
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
@@ -103,7 +148,7 @@ const CandidateForm = () => {
                                     name="contact"
                                     value={formData.contact}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black  "
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
@@ -158,7 +203,7 @@ const CandidateForm = () => {
                                     name="job_location"
                                     value={formData.job_location}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black  "
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
@@ -172,7 +217,7 @@ const CandidateForm = () => {
                                     name="specialization"
                                     value={formData.specialization}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black  "
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
@@ -184,7 +229,7 @@ const CandidateForm = () => {
                                     name="salaryExpectation"
                                     value={formData.salaryExpectation}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black  "
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>

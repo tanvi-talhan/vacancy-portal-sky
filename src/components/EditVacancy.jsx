@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { db } from '../../firebase/firebaseConfig';
 import image from '../assets/vacancy-bg.png';
 import Footer from './Footer';
-import { db } from '../../firebase/firebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
 
-const Vacancy = () => {
+const EditVacancy = () => {
+  const { state } = useLocation();
+  const { vacancy } = state;
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const [formData, setFormData] = useState({
     companyName: '',
     designation: '',
@@ -17,7 +22,19 @@ const Vacancy = () => {
     hrContact: ''
   });
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchVacancy = async () => {
+      const docRef = doc(db, 'vacancies', id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setFormData(docSnap.data());
+      } else {
+        console.error('No such document!');
+      }
+    };
+
+    fetchVacancy();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,25 +47,10 @@ const Vacancy = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, 'vacancies'), {
-        ...formData,
-        timestamp: new Date()
-      });
-      console.log('Vacancy added:', formData);
+      await updateDoc(doc(db, 'vacancies', id), formData);
       navigate('/nav/home');
-
-      setFormData({
-        companyName: '',
-        designation: '',
-        jobDescription: '',
-        jobType: '',
-        location: '',
-        salary: '',
-        hrEmail: '',
-        hrContact: ''
-      });
     } catch (error) {
-      console.error('Error adding vacancy:', error);
+      console.error('Error updating vacancy:', error);
     }
   };
 
@@ -59,7 +61,7 @@ const Vacancy = () => {
         style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
       >
         <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-2xl w-full max-w-2xl bg-opacity-50">
-          <h1 className="text-2xl font-bold mb-4 uppercase text-center">Add a Vacancy</h1>
+          <h1 className="text-2xl font-bold mb-4 uppercase text-center">Edit Vacancy</h1>
           <hr className="mb-4" />
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -216,4 +218,4 @@ const Vacancy = () => {
   );
 };
 
-export default Vacancy;
+export default EditVacancy;
