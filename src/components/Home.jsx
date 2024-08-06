@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/firebaseConfig';
 import '../index.css';
 import Footer from './Footer';
@@ -7,10 +7,9 @@ import Bgimage from '../assets/common/bg-img.png';
 import { PiBuildingApartmentFill, PiCurrencyInrDuotone } from "react-icons/pi";
 import { RiHandbagLine } from "react-icons/ri";
 import { IoLocation } from "react-icons/io5";
-import { MdScreenSearchDesktop, MdContactMail, MdContactPhone } from "react-icons/md";
+import { MdContactMail, MdContactPhone } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { TiDelete } from "react-icons/ti";
-
 
 const SearchBar = ({ value, onChange }) => (
   <div className="relative mt-4">
@@ -31,56 +30,43 @@ const SearchBar = ({ value, onChange }) => (
   </div>
 );
 
-const Card = ({ companyName, designation, jobDescription, jobType, location, salary, hrEmail, hrContact }) => (
-  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 bg-[#B7B597] w-full h-full  ">
-    <div className="flex justify-end items-center">
-      <a title='Edit'><CiEdit className='text-3xl text-green-600' /></a>&nbsp;
-      <a title='Delete'><TiDelete className='text-3xl text-red-600' /></a>
+const Card = ({ vacancy, onEdit, onDelete }) => (
+  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 border bg-white w-full h-full bg-opacity-80">
+    <div className="flex justify-end items-center mb-2">
+      <a title='Edit' onClick={() => onEdit(vacancy)}><CiEdit className='text-3xl text-green-600 cursor-pointer' /></a>&nbsp;
+      <a title='Delete' onClick={() => onDelete(vacancy.id)}><TiDelete className='text-3xl text-red-600 cursor-pointer' /></a>
     </div>
-    <div className="flex justify-between items-center">
-      <h2 className="flex text-lg md:text-xl lg:text-2xl font-bold">
-        MERN-stack Web Developer</h2>
-      {/* <span className="text-gray-500 text-sm md:text-base">12h ago</span> */}
+    <div className="flex justify-between items-center mb-2">
+      <h2 className="text-lg md:text-xl lg:text-2xl font-bold ">{vacancy.designation}</h2>
     </div>
-    <p className="text-gray-600 text-sm md:text-base flex"><PiBuildingApartmentFill className='mt-1 text-gray-600' />&nbsp;
-      Skymentor Technology and Services pvt. ltd.</p>
-    <p className="text-gray-800 md:text-base flex">&nbsp;
-      <span className='text-sm'>Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java</span></p>
-    <div className=" items-center my-2">
-      <div className="flex items-center">
-        <MdContactPhone />&nbsp;
-        <span>HR Contact</span>
+    <p className="text-gray-600 flex items-center text-sm md:text-base mb-2"><PiBuildingApartmentFill />&nbsp;<span>{vacancy.companyName}</span></p>
+    <p className="text-gray-800 md:text-base mb-2">
+      <span className='text-sm block truncate'>{vacancy.jobDescription}</span>
+    </p>
+    <div className="items-center my-2">
+      <div className="flex items-center mb-1">
+        <MdContactPhone />&nbsp;<span>{vacancy.hrContact}</span>
       </div>
-      <div className="flex items-center">
-        <MdContactMail />&nbsp;
-        <span>bhiughhjl@gmail.com</span>
+      <div className="flex items-center mb-1">
+        <MdContactMail />&nbsp;<span>{vacancy.hrEmail}</span>
       </div>
-      {/* <div className="bg-yellow-400 text-white rounded-full px-2 py-1 text-xs font-bold mr-3">3.5+</div> */}
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-2  ">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
       <div className="flex items-center">
         <RiHandbagLine />
-        <span className="ml-2">2-5 Yrs</span>
+        <span className="ml-2">{vacancy.jobType}</span>
       </div>
-      <div className="flex items-center">
-        <MdScreenSearchDesktop />&nbsp;
-        <span>Job Type</span>
-      </div>
-
       <div className="flex items-center">
         <PiCurrencyInrDuotone />
-        <span className="ml-2">{salary} P.A.</span>
+        <span className="ml-2">{vacancy.salary} P.A.</span>
       </div>
       <div className="flex items-center">
         <IoLocation />
-        <span className="ml-2">{location}</span>
+        <span className="ml-2">{vacancy.location}</span>
       </div>
     </div>
-
-    {/* <button className="bg-blue-100 text-blue-600 font-bold py-2 px-4 rounded-full mt-4 transition duration-200">Share interest</button> */}
   </div>
 );
-
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -89,7 +75,11 @@ const Home = () => {
   useEffect(() => {
     const fetchVacancies = async () => {
       const querySnapshot = await getDocs(collection(db, 'vacancies'));
-      const fetchedVacancies = querySnapshot.docs.map(doc => doc.data());
+      const fetchedVacancies = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      // Sort vacancies by timestamp in descending order
+      fetchedVacancies.sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate());
+
       setVacancies(fetchedVacancies);
     };
 
@@ -100,6 +90,19 @@ const Home = () => {
     vacancy.jobDescription.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleEdit = (vacancy) => {
+    // Logic to handle edit action
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'vacancies', id));
+      setVacancies(prevVacancies => prevVacancies.filter(vacancy => vacancy.id !== id));
+    } catch (error) {
+      console.error('Error deleting vacancy:', error);
+    }
+  };
+
   return (
     <>
       <div className="container py-12 bg-cover bg-no-repeat bg-center max-w-full min-h-screen flex flex-col items-center" style={{ backgroundImage: `url(${Bgimage})` }}>
@@ -109,17 +112,12 @@ const Home = () => {
             New Vacancies
           </span>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 w-full max-w-5xl mt-4 px-4">
-            {filteredVacancies.map((vacancy, index) => (
+            {filteredVacancies.map((vacancy) => (
               <Card
-                key={index}
-                companyName={vacancy.companyName}
-                designation={vacancy.designation}
-                jobDescription={vacancy.jobDescription}
-                jobType={vacancy.jobType}
-                location={vacancy.location}
-                salary={vacancy.salary}
-                hrEmail={vacancy.hrEmail}
-                hrContact={vacancy.hrContact}
+                key={vacancy.id}
+                vacancy={vacancy}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
               />
             ))}
           </div>
