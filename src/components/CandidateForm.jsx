@@ -97,11 +97,11 @@ const CandidateForm = () => {
     return (
         <>
             <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-cover bg-no-repeat" style={{ backgroundImage: `url(${Bgimage})` }}>
-                <div className="w-full max-w-3xl  rounded-lg shadow-lg p-6 bg-white bg-opacity-60">
+                <div className="w-full max-w-3xl  rounded-lg shadow-lg p-6 bg-opacity-60 bg-[#B7B597]">
                     <h2 className="text-2xl font-bold mb-2 text-center text-black uppercase">Candidate Detail Form</h2>
                     <hr />
-                    <form onSubmit={handleSubmit} className="space-y-4 mt-3">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <form onSubmit={handleSubmit} className="space-y-4 mt-3 ">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
                             <div className="block">
                                 <label htmlFor="firstName" className="block text-sm font-medium text-black">First Name</label>
                                 <input
@@ -110,7 +110,7 @@ const CandidateForm = () => {
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black "
                                     required
                                 />
                             </div>
@@ -253,7 +253,7 @@ const CandidateForm = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full border border-green-600 text-black py-2 px-4 rounded-md shadow-sm hover:bg-[#4db78f] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#55e6a5] font-extrabold"
+                            className="w-full border border-white text-black py-2 px-4 rounded-md shadow-sm hover:bg-[#0b291f] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#55e6a5] font-extrabold"
                         >
                             Submit
                         </button>

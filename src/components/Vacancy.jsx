@@ -58,7 +58,7 @@ const Vacancy = () => {
         className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat bg-opacity-50 py-5"
         style={{ backgroundImage: `url(${bgimg})`, backgroundSize: 'cover' }}
       >
-        <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-2xl w-full max-w-2xl bg-opacity-50">
+        <div className="bg-[#B7B597] p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-2xl w-full max-w-2xl bg-opacity-50">
           <h1 className="text-2xl font-bold mb-4 uppercase text-center">Add a Vacancy</h1>
           <hr className="mb-4" />
           <form onSubmit={handleSubmit}>
