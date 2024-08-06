@@ -16,13 +16,13 @@ const SearchBar = ({ value, onChange }) => (
   <div className="relative mt-4">
     <div className="flex justify-center">
       <div className="max-w-9xl w-full mx-6 sm:mx-6 md:mx-16 lg:mx-80">
-        <div className="flex items-center bg-green-50 border rounded-full p-2">
+        <div className="flex items-center bg-yellow-200 border rounded-full p-2 bg-opacity-0">
           <input
             type="text"
             placeholder="search for vacancies..."
             value={value}
             onChange={onChange}
-            className="p-1 outline-none text-sm w-full bg-transparent text-green-950"
+            className="p-1 outline-none text-sm w-full bg-transparent text-black font-bol"
           />
           <span className="relative right-2 top-3 transform -translate-y-1/2 text-green-500 text-xl">&#x1F50D;</span>
         </div>
@@ -32,7 +32,7 @@ const SearchBar = ({ value, onChange }) => (
 );
 
 const Card = ({ companyName, designation, jobDescription, jobType, location, salary, hrEmail, hrContact }) => (
-  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 border bg-white w-full h-full bg-opacity-80 ">
+  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 bg-[#B7B597] w-full h-full  ">
     <div className="flex justify-end items-center">
       <a title='Edit'><CiEdit className='text-3xl text-green-600' /></a>&nbsp;
       <a title='Delete'><TiDelete className='text-3xl text-red-600' /></a>
@@ -105,7 +105,7 @@ const Home = () => {
       <div className="container py-12 bg-cover bg-no-repeat bg-center max-w-full min-h-screen flex flex-col items-center" style={{ backgroundImage: `url(${Bgimage})` }}>
         <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <div className="flex flex-col items-center mt-8">
-          <span className="sticky top-0 bg-blue-200 px-2 py-1 text-lg font-medium text-blue-700 rounded-full text-gradient-my text-shadow-custom animate-pulse">
+          <span className="sticky top-0  px-2 py-1 text-2xl font-bold text-black rounded-full s text-shadow-custom ">
             New Vacancies
           </span>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 w-full max-w-5xl mt-4 px-4">
