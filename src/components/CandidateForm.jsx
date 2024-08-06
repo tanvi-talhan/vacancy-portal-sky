@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
+import { db, storage } from '../../firebase/firebaseConfig'; // Import the db and storage from your firebase.js
+import { collection, addDoc } from "firebase/firestore"; 
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Footer from "./Footer";
+import Bgimage from '../assets/common/bg-img.png';
+import { useNavigate } from 'react-router-dom';
 
 const CandidateForm = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +21,8 @@ const CandidateForm = () => {
 
     const [fileName, setFileName] = useState('');
     const [imagePreviewURL, setImagePreviewURL] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -43,106 +50,145 @@ const CandidateForm = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData); // Handle form submission logic
+
+        try {
+            // Upload CV to Firebase Storage
+            const storageRef = ref(storage, `cvs/${formData.cv.name}`);
+            await uploadBytes(storageRef, formData.cv);
+            const cvURL = await getDownloadURL(storageRef);
+
+            // Save form data to Firestore
+            await addDoc(collection(db, "candidates"), {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                contact: formData.contact,
+                gender: formData.gender,
+                job_location: formData.job_location,
+                specialization: formData.specialization,
+                salaryExpectation: formData.salaryExpectation,
+                cv: cvURL
+            });
+
+            console.log("Document successfully written!");
+            // Reset form
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                contact: '',
+                gender: '',
+                job_location: '',
+                specialization: '',
+                salaryExpectation: '',
+                cv: null
+            });
+            setFileName('');
+            setImagePreviewURL(null);
+            navigate('/nav/view-candidates');
+
+        } catch (error) {
+            console.error("Error writing document: ", error);
+        }
     };
 
     return (
         <>
-            <div className="flex items-center justify-center min-h-screen bg-gray-100 my-4">
-                <div className="w-full max-w-3xl bg-black rounded-lg shadow-lg p-6 mx-4">
-                    <h2 className="text-2xl font-bold mb-2 text-center text-white uppercase">Candidate Detail Form</h2>
+            <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-cover bg-no-repeat" style={{ backgroundImage: `url(${Bgimage})` }}>
+                <div className="w-full max-w-3xl  rounded-lg shadow-lg p-6 bg-white bg-opacity-60">
+                    <h2 className="text-2xl font-bold mb-2 text-center text-black uppercase">Candidate Detail Form</h2>
                     <hr />
                     <form onSubmit={handleSubmit} className="space-y-4 mt-3">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="block">
-                                <label htmlFor="firstName" className="block text-sm font-medium text-white">First Name</label>
+                                <label htmlFor="firstName" className="block text-sm font-medium text-black">First Name</label>
                                 <input
                                     type="text"
                                     id="firstName"
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black bg-[#55e6a5]"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
                             <div className="block">
-                                <label htmlFor="lastName" className="block text-sm font-medium text-white">Last Name</label>
+                                <label htmlFor="lastName" className="block text-sm font-medium text-black">Last Name</label>
                                 <input
                                     type="text"
                                     id="lastName"
                                     name="lastName"
                                     value={formData.lastName}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black bg-[#55e6a5]"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="block">
-                                <label htmlFor="email" className="block text-sm font-medium text-white">Email</label>
+                                <label htmlFor="email" className="block text-sm font-medium text-black">Email</label>
                                 <input
                                     type="email"
                                     id="email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black bg-[#55e6a5]"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
                             <div className="block">
-                                <label htmlFor="contact" className="block text-sm font-medium text-white">Contact</label>
+                                <label htmlFor="contact" className="block text-sm font-medium text-black">Contact</label>
                                 <input
                                     type="tel"
                                     id="contact"
                                     name="contact"
                                     value={formData.contact}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black bg-[#55e6a5]"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                             <div className="block">
-                                <label className="block text-sm font-medium text-white">Gender</label>
+                                <label className="block text-sm font-medium text-black">Gender</label>
                                 <div className="mt-1 flex space-x-4">
-                                    <label className="flex items-center text-white">
+                                    <label className="flex items-center text-black">
                                         <input
                                             type="radio"
                                             name="gender"
                                             value="male"
                                             checked={formData.gender === 'male'}
                                             onChange={handleChange}
-                                            className="h-4 w-4 text-white focus:ring-indigo-500 border-black"
+                                            className="h-4 w-4 text-black focus:ring-indigo-500 border-black"
                                             required
                                         />
                                         <span className="ml-2 text-sm">Male</span>
                                     </label>
-                                    <label className="flex items-center text-white">
+                                    <label className="flex items-center text-black">
                                         <input
                                             type="radio"
                                             name="gender"
                                             value="female"
                                             checked={formData.gender === 'female'}
                                             onChange={handleChange}
-                                            className="h-4 w-4 text-white focus:ring-indigo-500 border-black"
+                                            className="h-4 w-4 text-black focus:ring-indigo-500 border-black"
                                             required
                                         />
                                         <span className="ml-2 text-sm">Female</span>
                                     </label>
-                                    <label className="flex items-center text-white">
+                                    <label className="flex items-center text-black">
                                         <input
                                             type="radio"
                                             name="gender"
                                             value="other"
                                             checked={formData.gender === 'other'}
                                             onChange={handleChange}
-                                            className="h-4 w-4 text-white focus:ring-indigo-500 border-black"
+                                            className="h-4 w-4 text-black focus:ring-indigo-500 border-black"
                                             required
                                         />
                                         <span className="ml-2 text-sm">Other</span>
@@ -150,46 +196,46 @@ const CandidateForm = () => {
                                 </div>
                             </div>
                             <div className="block">
-                                <label htmlFor="job_location" className="block text-sm font-medium text-white">Job Location</label>
+                                <label htmlFor="job_location" className="block text-sm font-medium text-black">Job Location</label>
                                 <input
                                     type="text"
                                     id="job_location"
                                     name="job_location"
                                     value={formData.job_location}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black bg-[#55e6a5]"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                             <div className="block">
-                                <label htmlFor="specialization" className="block text-sm font-medium text-white">Specialization</label>
+                                <label htmlFor="specialization" className="block text-sm font-medium text-black">Specialization</label>
                                 <input
                                     type="text"
                                     id="specialization"
                                     name="specialization"
                                     value={formData.specialization}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black bg-[#55e6a5]"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
                             <div className="block mb-3">
-                                <label htmlFor="salaryExpectation" className="block text-sm font-medium text-white">Salary Expectation</label>
+                                <label htmlFor="salaryExpectation" className="block text-sm font-medium text-black">Salary Expectation</label>
                                 <input
                                     type="number"
                                     id="salaryExpectation"
                                     name="salaryExpectation"
                                     value={formData.salaryExpectation}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black bg-[#55e6a5]"
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
                                     required
                                 />
                             </div>
                         </div>
-                        <label htmlFor="image-upload" className='text-white font-medium'>Upload your Resume</label>
-                        <div className="flex justify-center items-center border-dashed border-2 border-gray-300 rounded p-4 text-center cursor-pointer mb-4 mt-2">
+                        <label htmlFor="image-upload" className='text-black font-medium'>Upload your Resume</label>
+                        <div className="flex justify-center items-center border-dashed border-2 border-gray-500 rounded p-4 text-center cursor-pointer mb-4 mt-2">
                             <label htmlFor="file-upload" className="text-blue-500">
                                 <input
                                     id="file-upload"
@@ -207,7 +253,7 @@ const CandidateForm = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full bg-[#55e6a5] text-black py-2 px-4 rounded-md shadow-sm hover:bg-[#4db78f] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#55e6a5] font-extrabold"
+                            className="w-full border border-green-600 text-black py-2 px-4 rounded-md shadow-sm hover:bg-[#4db78f] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#55e6a5] font-extrabold"
                         >
                             Submit
                         </button>

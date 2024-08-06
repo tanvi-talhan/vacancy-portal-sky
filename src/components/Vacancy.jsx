@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
-import image from '../assets/vacancy-bg.png';
+import bgimg from '../assets/common/bg-img.png';
 import Footer from './Footer';
+import { db } from '../../firebase/firebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const Vacancy = () => {
   const [formData, setFormData] = useState({
-    DESIGNATION: '',
+    companyName: '',
+    designation: '',
     jobDescription: '',
     jobType: '',
     location: '',
     salary: '',
-    image: null,
+    hrEmail: '',
+    hrContact: ''
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,39 +27,71 @@ const Vacancy = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted', formData);
-    // Also handle image upload logic if needed
+    try {
+      await addDoc(collection(db, 'vacancies'), {
+        ...formData,
+        timestamp: new Date()
+      });
+      console.log('Vacancy added:', formData);
+      navigate('/nav/home');
+
+      setFormData({
+        companyName: '',
+        designation: '',
+        jobDescription: '',
+        jobType: '',
+        location: '',
+        salary: '',
+        hrEmail: '',
+        hrContact: ''
+      });
+    } catch (error) {
+      console.error('Error adding vacancy:', error);
+    }
   };
 
   return (
     <>
       <div
-        className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat opacity-85"
-        style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
+        className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat bg-opacity-50 py-5"
+        style={{ backgroundImage: `url(${bgimg})`, backgroundSize: 'cover' }}
       >
-        <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-md w-full max-w-2xl">
+        <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-2xl w-full max-w-2xl bg-opacity-50">
           <h1 className="text-2xl font-bold mb-4 uppercase text-center">Add a Vacancy</h1>
           <hr className="mb-4" />
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="jobTitle">
-                DESIGNATION
+              <label className="block text-black font-medium mb-2" htmlFor="companyName">
+                Company Name
               </label>
               <input
                 type="text"
-                id="DESIGNATION"
-                name="DESIGNATION"
-                value={formData.DESIGNATION}
+                id="companyName"
+                name="companyName"
+                value={formData.companyName}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="jobType">
+              <label className="block text-black font-medium mb-2" htmlFor="designation">
+                Designation
+              </label>
+              <input
+                type="text"
+                id="designation"
+                name="designation"
+                value={formData.designation}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-black font-medium mb-2" htmlFor="jobType">
                 Job Type
               </label>
               <select
@@ -71,21 +110,22 @@ const Vacancy = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="jobDescription">
+              <label className="block text-black font-medium mb-2" htmlFor="jobDescription">
                 Job Description
               </label>
               <textarea
                 id="jobDescription"
                 name="jobDescription"
+                maxLength={50}
                 value={formData.jobDescription}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none"
                 required
               />
             </div>
             <div className="mb-4 md:flex md:space-x-4">
               <div className="w-full mb-4 md:mb-0">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="location">
+                <label className="block text-black font-medium mb-2" htmlFor="location">
                   Location
                 </label>
                 <input
@@ -99,7 +139,7 @@ const Vacancy = () => {
                 />
               </div>
               <div className="w-full">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="salary">
+                <label className="block text-black font-medium mb-2" htmlFor="salary">
                   Expected Salary
                 </label>
                 <input
@@ -113,36 +153,57 @@ const Vacancy = () => {
                 />
               </div>
             </div>
-
-            {/* Image upload section commented out as per your original code
-            <label htmlFor="image-upload" className='text-gray-700 font-medium'>Upload Image</label>
-            <div className="flex justify-center items-center border-dashed border-2 border-gray-300 rounded p-4 text-center cursor-pointer mb-4 mt-2">
-              <label htmlFor="file-upload" className="text-blue-500">
+            <div className="mb-4 md:flex md:space-x-4">
+              <div className="w-full mb-4 md:mb-0">
+                <label className="block text-black font-medium mb-2" htmlFor="hrEmail">
+                  HR Email
+                </label>
                 <input
-                  id="file-upload"
-                  onChange={handleImageChange}
-                  type="file"
-                  className="hidden"
+                  type="email"
+                  id="hrEmail"
+                  name="hrEmail"
+                  value={formData.hrEmail}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                   required
                 />
-                {imagePreviewURL ? (
-                  <img src={imagePreviewURL} alt="Group" className="w-auto h-20" />
-                ) : (
-                  fileName || "Add file or drop files here"
-                )}
-              </label>
-            </div> */}
+              </div>
+              <div className="w-full">
+                <label className="block text-black font-medium mb-2" htmlFor="hrContact">
+                  HR Contact
+                </label>
+                <input
+                  type="text"
+                  id="hrContact"
+                  name="hrContact"
+                  value={formData.hrContact}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+            </div>
 
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="w-1/2 bg-green-500 text-white font-bold py-2 px-4 rounded-lg border hover:border-green-800 hover:text-green-600 hover:bg-transparent"
+                className="w-1/2 font-bold py-2 px-4 rounded-lg border text-black bg-transparent hover:bg-[#0f271c] hover:text-white"
               >
                 Submit
               </button>
               <button
                 type="reset"
-                className="w-1/2 bg-blue-500 text-white py-2 px-4 font-bold rounded-lg border hover:border-blue-800 hover:text-blue-600 hover:bg-transparent"
+                className="w-1/2 hover:bg-[#0f271c] rounded-lg border hover:text-white py-2 px-4 font-bold text-black bg-transparent"
+                onClick={() => setFormData({
+                  companyName: '',
+                  designation: '',
+                  jobDescription: '',
+                  jobType: '',
+                  location: '',
+                  salary: '',
+                  hrEmail: '',
+                  hrContact: ''
+                })}
               >
                 Reset
               </button>

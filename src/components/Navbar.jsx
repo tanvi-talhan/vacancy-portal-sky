@@ -4,11 +4,11 @@ import logo from '../assets/common/logo.png'
 import { Link, Outlet } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Home', to: '/home', current: true },
-  { name: 'Add Vacancy', to: '/add-vacancy', current: false },
-  { name: 'Add Candidate', to: '/add-candidate', current: false },
-  { name: 'View Candidates', to: '/view-candidates', current: false },
-  { name: 'Logout', to: '/logout', current: false },
+  { name: 'Home', to: '/nav/home', current: true },
+  { name: 'Add Vacancy', to: '/nav/add-vacancy', current: false },
+  { name: 'Add Candidate', to: '/nav/add-candidate', current: false },
+  { name: 'View Candidates', to: '/nav/view-candidates', current: false },
+  { name: 'Logout', to: '/nav/logout', current: false },
 ]
 
 function classNames(...classes) {
@@ -18,7 +18,7 @@ function classNames(...classes) {
 export default function Navbar() {
   return (
     <>
-      <Disclosure as="nav" className="bg-black">
+      <Disclosure as="nav" className="bg-[#B7B597]">
         <div className="mx-auto max-w-9xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -31,7 +31,7 @@ export default function Navbar() {
               </DisclosureButton>
             </div>
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
-              <div className="flex flex-shrink-0 items-center">
+              <div className="flex flex-shrink-0 items-center bg-[#0f271c] rounded-xl p-1" >
                 <img
                   alt="Your Company"
                   src={logo}
@@ -45,7 +45,7 @@ export default function Navbar() {
                         key={item.name}
                         to={item.to}
                         className={classNames(
-                          item.current ? 'hover:bg-green-300 text-green-100 hover:text-green-950' : 'text-green-100 hover:bg-green-300 hover:text-green-950',
+                          item.current ? 'hover:bg-[#6B8A7A] hover:text-black text-[#254336]' : 'text-[#254336] hover:text-black hover:bg-[#6B8A7A]',
                           'block rounded-md px-3 py-2 text-base font-medium',
                           item.name === 'Login' ? 'bg-green-300 hover:bg-green-500 text-green-950 hover:text-green-950' : '',
                           'block rounded-md px-3 py-2 text-base font-medium',
