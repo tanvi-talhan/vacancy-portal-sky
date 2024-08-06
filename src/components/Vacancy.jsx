@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import image from '../assets/vacancy-bg.png';
+import image from '../assets/common/bg3.jpg';
 import Footer from './Footer';
 import { db } from '../../firebase/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
@@ -58,12 +58,12 @@ const Vacancy = () => {
         className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat bg-opacity-50 py-5"
         style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
       >
-        <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-2xl w-full max-w-2xl bg-opacity-50">
+        <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-2xl w-full max-w-2xl bg-opacity-60">
           <h1 className="text-2xl font-bold mb-4 uppercase text-center">Add a Vacancy</h1>
           <hr className="mb-4" />
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="companyName">
+              <label className="block text-black font-medium mb-2" htmlFor="companyName">
                 Company Name
               </label>
               <input
@@ -77,7 +77,7 @@ const Vacancy = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="designation">
+              <label className="block text-black font-medium mb-2" htmlFor="designation">
                 Designation
               </label>
               <input
@@ -91,7 +91,7 @@ const Vacancy = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="jobType">
+              <label className="block text-black font-medium mb-2" htmlFor="jobType">
                 Job Type
               </label>
               <select
@@ -110,7 +110,7 @@ const Vacancy = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2" htmlFor="jobDescription">
+              <label className="block text-black font-medium mb-2" htmlFor="jobDescription">
                 Job Description
               </label>
               <textarea
@@ -124,7 +124,7 @@ const Vacancy = () => {
             </div>
             <div className="mb-4 md:flex md:space-x-4">
               <div className="w-full mb-4 md:mb-0">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="location">
+                <label className="block text-black font-medium mb-2" htmlFor="location">
                   Location
                 </label>
                 <input
@@ -138,7 +138,7 @@ const Vacancy = () => {
                 />
               </div>
               <div className="w-full">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="salary">
+                <label className="block text-black font-medium mb-2" htmlFor="salary">
                   Expected Salary
                 </label>
                 <input
@@ -154,7 +154,7 @@ const Vacancy = () => {
             </div>
             <div className="mb-4 md:flex md:space-x-4">
               <div className="w-full mb-4 md:mb-0">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="hrEmail">
+                <label className="block text-black font-medium mb-2" htmlFor="hrEmail">
                   HR Email
                 </label>
                 <input
@@ -168,7 +168,7 @@ const Vacancy = () => {
                 />
               </div>
               <div className="w-full">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="hrContact">
+                <label className="block black font-medium mb-2" htmlFor="hrContact">
                   HR Contact
                 </label>
                 <input
@@ -186,13 +186,13 @@ const Vacancy = () => {
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="w-1/2  hover:text-white font-bold py-2 px-4 rounded-lg border border-green-800 text-green-600 bg-transparent hover:bg-green-500"
+                className="w-1/2  hover:text-white font-bold py-2 px-4 text-lg rounded-lg border-black text-green-800 bg-transparent hover:bg-green-600"
               >
                 Submit
               </button>
               <button
                 type="reset"
-                className="w-1/2 hover:bg-blue-500 hover:text-white py-2 px-4 font-bold rounded-lg border border-blue-800 text-blue-600 bg-transparent"
+                className="w-1/2 hover:bg-orange-500 hover:text-white py-2 px-4 font-bold text-lg rounded-lg border border-black text-orange-600 bg-transparent"
                 onClick={() => setFormData({
                   designation: '',
                   jobDescription: '',

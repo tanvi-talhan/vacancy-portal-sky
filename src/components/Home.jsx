@@ -3,7 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebaseConfig';
 import '../index.css';
 import Footer from './Footer';
-import bgimg from '../assets/common/bg3.jpg'
+import bgimg from '../assets/common/bg2.png'
 import { PiBuildingApartmentFill, PiCurrencyInrDuotone } from "react-icons/pi";
 import { RiHandbagLine } from "react-icons/ri";
 import { IoLocation } from "react-icons/io5";
@@ -32,9 +32,9 @@ const SearchBar = ({ value, onChange }) => (
 );
 
 const Card = ({ companyName, designation, jobDescription, jobType, location, salary, hrEmail, hrContact }) => (
-  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 border bg-green-100 w-full h-full bg-opacity-90 ">
+  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 border bg-green-200 w-full h-full bg-opacity-75 ">
     <div className="flex justify-end items-center">
-      <a title='Edit'><CiEdit className='text-3xl text-green-600' /></a>&nbsp;
+      <a title='Edit'><CiEdit className='text-3xl text-green-800' /></a>&nbsp;
       <a title='Delete'><TiDelete className='text-3xl text-red-600' /></a>
     </div>
     <div className="flex justify-between items-center">
@@ -42,9 +42,9 @@ const Card = ({ companyName, designation, jobDescription, jobType, location, sal
         MERN-stack Web Developer</h2>
       {/* <span className="text-gray-500 text-sm md:text-base">12h ago</span> */}
     </div>
-    <p className="text-gray-600 text-sm md:text-base flex"><PiBuildingApartmentFill className='mt-1 text-gray-600' />&nbsp;
+    <p className="text-black text-sm md:text-base flex"><PiBuildingApartmentFill className='mt-1 text-gray-600' />&nbsp;
       Skymentor Technology and Services pvt. ltd.</p>
-    <p className="text-gray-800 md:text-base flex">&nbsp;
+    <p className="text-black md:text-base flex">&nbsp;
       <span className='text-sm'>Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java</span></p>
     <div className=" items-center my-2">
       <div className="flex items-center">

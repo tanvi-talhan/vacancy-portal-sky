@@ -45,9 +45,9 @@ export default function Navbar() {
                         key={item.name}
                         to={item.to}
                         className={classNames(
-                          item.current ? 'hover:bg-green-300 text-green-100 hover:text-green-950' : 'text-green-100 hover:bg-green-300 hover:text-green-950',
+                          item.current ? 'hover:bg-green-100 text-green-100 hover:text-green-950' : 'text-green-100 hover:bg-green-100 hover:text-green-950',
                           'block rounded-md px-3 py-2 text-base font-medium',
-                          item.name === 'Login' ? 'bg-green-300 hover:bg-green-500 text-green-950 hover:text-green-950' : '',
+                          item.name === 'Login' ? 'bg-green-300 hover:bg-green-100 text-green-950 hover:text-green-950' : '',
                           'block rounded-md px-3 py-2 text-base font-medium',
                         )}
                       >

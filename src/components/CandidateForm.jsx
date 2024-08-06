@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Footer from "./Footer";
-import Bgimage from '../assets/common/bg-img.png';
+import Bgimage from '../assets/common/bg3.jpg';
 
 const CandidateForm = () => {
     const [formData, setFormData] = useState({
@@ -208,7 +208,7 @@ const CandidateForm = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full border border-green-600 text-black py-2 px-4 rounded-md shadow-sm hover:bg-[#4db78f] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#55e6a5] font-extrabold"
+                            className="w-full border text-black border-black py-2 px-4 rounded-md shadow-sm text-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#55e6a5] font-extrabold"
                         >
                             Submit
                         </button>
