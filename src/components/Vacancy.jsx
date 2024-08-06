@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import image from '../assets/common/bg3.jpg';
+import bgimg from '../assets/common/bg-img.png';
 import Footer from './Footer';
 import { db } from '../../firebase/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
@@ -56,7 +56,7 @@ const Vacancy = () => {
     <>
       <div
         className="flex items-center justify-center min-h-screen bg-cover bg-no-repeat bg-opacity-50 py-5"
-        style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
+        style={{ backgroundImage: `url(${bgimg})`, backgroundSize: 'cover' }}
       >
         <div className="bg-white p-8 mx-4 sm:mx-8 md:mx-16 rounded-lg shadow-2xl w-full max-w-2xl bg-opacity-60">
           <h1 className="text-2xl font-bold mb-4 uppercase text-center">Add a Vacancy</h1>
@@ -116,9 +116,10 @@ const Vacancy = () => {
               <textarea
                 id="jobDescription"
                 name="jobDescription"
+                maxLength={50}
                 value={formData.jobDescription}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none"
                 required
               />
             </div>
@@ -168,7 +169,7 @@ const Vacancy = () => {
                 />
               </div>
               <div className="w-full">
-                <label className="block black font-medium mb-2" htmlFor="hrContact">
+                <label className="block text-black font-medium mb-2" htmlFor="hrContact">
                   HR Contact
                 </label>
                 <input
@@ -186,19 +187,22 @@ const Vacancy = () => {
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="w-1/2  hover:text-white font-bold py-2 px-4 text-lg rounded-lg border-black text-green-800 bg-transparent hover:bg-green-600"
+                className="w-1/2 font-bold py-2 px-4 rounded-lg border text-black bg-transparent hover:bg-[#0f271c] hover:text-white"
               >
                 Submit
               </button>
               <button
                 type="reset"
-                className="w-1/2 hover:bg-orange-500 hover:text-white py-2 px-4 font-bold text-lg rounded-lg border border-black text-orange-600 bg-transparent"
+                className="w-1/2 hover:bg-[#0f271c] rounded-lg border hover:text-white py-2 px-4 font-bold text-black bg-transparent"
                 onClick={() => setFormData({
+                  companyName: '',
                   designation: '',
                   jobDescription: '',
                   jobType: '',
                   location: '',
                   salary: '',
+                  hrEmail: '',
+                  hrContact: ''
                 })}
               >
                 Reset

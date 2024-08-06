@@ -1,132 +1,157 @@
-import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/firebaseConfig';
-import '../index.css';
-import Footer from './Footer';
-import bgimg from '../assets/common/bg2.png'
-import { PiBuildingApartmentFill, PiCurrencyInrDuotone } from "react-icons/pi";
-import { RiHandbagLine } from "react-icons/ri";
-import { IoLocation } from "react-icons/io5";
-import { MdScreenSearchDesktop, MdContactMail, MdContactPhone } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
-import { TiDelete } from "react-icons/ti";
+import React, { useState } from 'react';
+import logo1 from '../assets/Home/c1.jpg';
+import logo2 from '../assets/Home/c2.jpg';
+import logo3 from '../assets/Home/c3.jpg';
+import logo4 from '../assets/Home/c4.jpg';
+import logo5 from '../assets/Home/c5.jpeg';
+import logo6 from '../assets/Home/c6.jpg';
+import '../index.css'; // Ensure this path is correct
 
 
-const SearchBar = ({ value, onChange }) => (
-  <div className="relative mt-4">
-    <div className="flex justify-center">
-      <div className="w-full mx-6 sm:w-4/5 md:w-3/4 lg:w-full xl:w-full">
-        <div className="flex items-center bg-green-100 border rounded-full p-2">
-          <input
-            type="text"
-            placeholder="search for vacancies..."
-            value={value}
-            onChange={onChange}
-            className="p-1 outline-none text-sm w-full bg-transparent text-green-950"
-          />
-          <span className="relative right-2 top-3 transform -translate-y-1/2 text-green-500 text-xl">&#x1F50D;</span>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const Card = ({ companyName, designation, jobDescription, jobType, location, salary, hrEmail, hrContact }) => (
-  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 border bg-green-200 w-full h-full bg-opacity-75 ">
-    <div className="flex justify-end items-center">
-      <a title='Edit'><CiEdit className='text-3xl text-green-800' /></a>&nbsp;
-      <a title='Delete'><TiDelete className='text-3xl text-red-600' /></a>
-    </div>
-    <div className="flex justify-between items-center">
-      <h2 className="flex text-lg md:text-xl lg:text-2xl font-bold">
-        MERN-stack Web Developer</h2>
-      {/* <span className="text-gray-500 text-sm md:text-base">12h ago</span> */}
-    </div>
-    <p className="text-black text-sm md:text-base flex"><PiBuildingApartmentFill className='mt-1 text-gray-600' />&nbsp;
-      Skymentor Technology and Services pvt. ltd.</p>
-    <p className="text-black md:text-base flex">&nbsp;
-      <span className='text-sm'>Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java</span></p>
-    <div className=" items-center my-2">
-      <div className="flex items-center">
-        <MdContactPhone />&nbsp;
-        <span>HR Contact</span>
-      </div>
-      <div className="flex items-center">
-        <MdContactMail />&nbsp;
-        <span>bhiughhjl@gmail.com</span>
-      </div>
-      {/* <div className="bg-yellow-400 text-white rounded-full px-2 py-1 text-xs font-bold mr-3">3.5+</div> */}
-    </div>
-    <div className="grid grid-cols-1 md:grid-cols-2  ">
-      <div className="flex items-center">
-        <RiHandbagLine />
-        <span className="ml-2">2-5 Yrs</span>
-      </div>
-      <div className="flex items-center">
-        <MdScreenSearchDesktop />&nbsp;
-        <span>Job Type</span>
-      </div>
-
-      <div className="flex items-center">
-        <PiCurrencyInrDuotone />
-        <span className="ml-2">{salary} P.A.</span>
-      </div>
-      <div className="flex items-center">
-        <IoLocation />
-        <span className="ml-2">{location}</span>
-      </div>
-    </div>
-
-    {/* <button className="bg-blue-100 text-blue-600 font-bold py-2 px-4 rounded-full mt-4 transition duration-200">Share interest</button> */}
-  </div>
-);
-
-
-const Home = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [vacancies, setVacancies] = useState([]);
-
-  useEffect(() => {
-    const fetchVacancies = async () => {
-      const querySnapshot = await getDocs(collection(db, 'vacancies'));
-      const fetchedVacancies = querySnapshot.docs.map(doc => doc.data());
-      setVacancies(fetchedVacancies);
-    };
-
-    fetchVacancies();
-  }, []);
-
-  const filteredVacancies = vacancies.filter(vacancy =>
-    vacancy.jobDescription.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+// SearchBar Component
+const SearchBar = ({ value, onChange }) => {
   return (
-    <>
-      <div className="container py-12 bg-cover bg-no-repeat bg-center max-w-full min-h-screen flex flex-col items-center" style={{ backgroundImage: `url(${bgimg})` }}>
-        <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-        <div className="flex flex-col items-center mt-8">
-          <span className="sticky top-0 bg-green-200 px-2 py-1 text-3xl font-medium text-green-500 rounded-full text-gradient-my text-shadow-custom animate-pulse">
-            New Vacancies
-          </span>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 w-full max-w-5xl mt-4 px-4">
-            {filteredVacancies.map((vacancy, index) => (
-              <Card
-                key={index}
-                companyName={vacancy.companyName}
-                designation={vacancy.designation}
-                jobDescription={vacancy.jobDescription}
-                jobType={vacancy.jobType}
-                location={vacancy.location}
-                salary={vacancy.salary}
-                hrEmail={vacancy.hrEmail}
-                hrContact={vacancy.hrContact}
-              />
-            ))}
+    <div className="relative mt-4">
+      <div className="flex justify-center">
+        <div className="max-w-9xl w-full mx-6 sm:mx-6 md:mx-16 lg:mx-80">
+          <div className="flex items-center bg-green-50 border rounded-full p-2">
+            <input
+              type="text"
+              placeholder="search for vacancies..."
+              value={value}
+              onChange={onChange}
+              className="p-1 outline-none text-sm w-full bg-transparent text-white"
+            />
+            <span className="relative right-2 top-3 transform -translate-y-1/2 text-green-500 text-xl">&#x1F50D;</span>
           </div>
         </div>
       </div>
-      <Footer />
+    </div>
+  );
+};
+
+
+// Card Component
+const Card = ({ img, title, description }) => {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="flex flex-col items-center">
+        {img}
+        <h2 className="mt-4 text-xl text-center font-bold text-gray-800">{title}</h2>
+        <p className="mt-2 text-gray-600 justify-center text-sm">{description}</p>
+      </div>
+    </div>
+  );
+};
+
+// Home Component
+const Home = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const cards = [
+    {
+      img: (
+        <img
+          alt="Card 1"
+          src={logo1}
+          className="h-96 w-auto rounded-lg"
+        />
+      ),
+      title: 'Noteworthy Technology Acquisitions 2021',
+      description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
+    },
+    {
+      img: (
+        <img
+          alt="Card 2"
+          src={logo2}
+          className="h-96 w-auto rounded-lg"
+        />
+      ),
+      title: 'Card 2 Title',
+      description: 'Card 2 description',
+    },
+    {
+      img: (
+        <img
+          alt="Card 3"
+          src={logo3}
+          className="h-96 w-auto rounded-lg"
+        />
+      ),
+      title: 'Card 3 Title',
+      description: 'Card 3 description',
+    },
+    {
+      img: (
+        <img
+          alt="Card 4"
+          src={logo4}
+          className="h-96 w-auto rounded-lg"
+        />
+      ),
+      title: 'Card 4 Title',
+      description: 'Card 4 description',
+    },
+    {
+      img: (
+        <img
+          alt="Card 5"
+          src={logo5}
+          className="h-96 w-auto rounded-lg"
+        />
+      ),
+      title: 'Card 5 Title',
+      description: 'Card 5 description',
+    },
+    {
+      img: (
+        <img
+          alt="Card 6"
+          src={logo6}
+          className="h-96 w-auto rounded-lg"
+        />
+      ),
+      title: 'Card 6 Title',
+      description: 'Card 6 description',
+    },
+  ];
+
+  const filteredCards = cards.filter(card =>
+    card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleEdit = (vacancy) => {
+    // Logic to handle edit action
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'vacancies', id));
+      setVacancies(prevVacancies => prevVacancies.filter(vacancy => vacancy.id !== id));
+    } catch (error) {
+      console.error('Error deleting vacancy:', error);
+    }
+  };
+
+  return (
+    <>    
+    <div className="container mx-auto py-12">
+
+      <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+
+        <div className="grid grid-cols-1 mt-8">
+          <span className="sticky top-0 ml-4 sm:ml-8 md:ml-24 lg:ml-60 xl:ml-96 bg-blue-200 px-2 py-1 text-lg font-medium text-blue-700 rounded-full text-gradient-my text-shadow-custom animate-pulse">
+            new vacancies
+          </span>
+        {filteredCards.map((card, index) => (
+          <Card key={index} img={card.img} title={card.title} description={card.description} />
+        ))}
+      </div>
+    </div>
     </>
+
   );
 };
 
