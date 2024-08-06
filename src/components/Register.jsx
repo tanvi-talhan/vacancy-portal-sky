@@ -4,6 +4,7 @@ import { GrFormView, GrFormViewHide } from 'react-icons/gr';
 import logo from '../assets/common/logo.png';
 import { auth } from '../../firebase/firebaseConfig'; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import Bgimage from '../assets/common/bg-img.png';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -38,14 +39,14 @@ const Register = () => {
 
     return (
         <>
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="container py-12 bg-cover bg-no-repeat bg-center max-w-full min-h-screen flex flex-col items-center" style={{ backgroundImage: `url(${Bgimage})` }}>
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
                         alt="Your Company"
                         src={logo}
                         className="mx-auto h-10 w-auto"
                     />
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-green-950">
+                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-yellow-200">
                         Register to new account
                     </h2>
                 </div>
@@ -53,7 +54,7 @@ const Register = () => {
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                            <label htmlFor="username" className="block text-md font-medium leading-6 text-white">
                                 Enter username
                             </label>
                             <div className="mt-2">
@@ -70,7 +71,7 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                            <label htmlFor="email" className="block text-md font-medium leading-6 text-white">
                                 Email address
                             </label>
                             <div className="mt-2">
@@ -88,7 +89,7 @@ const Register = () => {
 
                         <div>
                             <div className="flex items-center justify-between">
-                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="password" className="block text-md font-medium leading-6 text-white">
                                     New Password
                                 </label>
                             </div>
@@ -118,7 +119,7 @@ const Register = () => {
 
                         <div>
                             <div className="flex items-center justify-between">
-                                <label htmlFor="confirmPassword" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="confirmPassword" className="block text-md font-medium leading-6 text-white">
                                     Confirm Password
                                 </label>
                             </div>
@@ -149,16 +150,16 @@ const Register = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-50 hover:text-green-600 hover:border hover:border-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-md bg-[#254336] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-50 hover:text-green-600 hover:border hover:border-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Sign Up
                             </button>
                         </div>
                     </form>
 
-                    <div className="mt-10 text-center text-sm text-gray-500">
+                    <div className="mt-10 text-center text-sm text-white">
                         Already Registered?&nbsp;
-                        <Link to='/login' className="font-semibold leading-6 text-green-600 hover:text-green-500">
+                        <Link to='/login' className="font-semibold leading-6 text-yellow-200 hover:text-green-200">
                             Login!
                         </Link>
                     </div>
