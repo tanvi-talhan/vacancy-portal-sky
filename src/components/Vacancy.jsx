@@ -4,7 +4,7 @@ import Footer from './Footer';
 
 const Vacancy = () => {
   const [formData, setFormData] = useState({
-    jobTitle: '',
+    DESIGNATION: '',
     jobDescription: '',
     jobType: '',
     location: '',
@@ -39,13 +39,13 @@ const Vacancy = () => {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 font-medium mb-2" htmlFor="jobTitle">
-                Job Title
+                DESIGNATION
               </label>
               <input
                 type="text"
-                id="jobTitle"
-                name="jobTitle"
-                value={formData.jobTitle}
+                id="DESIGNATION"
+                name="DESIGNATION"
+                value={formData.DESIGNATION}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 required
