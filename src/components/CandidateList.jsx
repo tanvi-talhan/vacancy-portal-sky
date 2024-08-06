@@ -5,6 +5,7 @@ import { BiShowAlt } from "react-icons/bi";
 import { db } from "../../firebase/firebaseConfig"; // Import Firestore
 import { collection, getDocs } from "firebase/firestore"; // Import Firestore functions
 import Footer from "./Footer";
+import Bgimage from '../assets/common/bg-img.png';
 
 const CandidateList = () => {
   const [candidates, setCandidates] = useState([]);
@@ -26,10 +27,11 @@ const CandidateList = () => {
 
   return (
     <>
-      <div className="container h-screen mx-auto p-4 pt-12 bg-gradient-to-r from-green-100 via-green-200 to-green-300 max-w-full">
+      <div className="container py-12 bg-cover bg-no-repeat bg-center max-w-full min-h-screen flex flex-col items-center" style={{ backgroundImage: `url(${Bgimage})` }}>
+        {/* <div className="container h-screen mx-auto p-4 pt-12 bg-gradient-to-r from-[#DAD3BE] via-[#B7B597] to-[#6B8A7A] max-w-full"> */}
         <div className="shadow-2xl rounded-3xl overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-green-800">
+            <thead className="bg-[#254336]">
               <tr>
                 <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Name</th>
                 <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Title</th>
@@ -40,18 +42,18 @@ const CandidateList = () => {
                 <th className="px-6 py-3 text-left text-sm font-medium text-green-50 uppercase tracking-wider">Modify</th>
               </tr>
             </thead>
-            <tbody className="bg-green-50 divide-y divide-gray-200">
+            <tbody className="bg-[#6B8A7A] divide-y divide-[#B7B597]">
               {candidates.map((candidate, index) => (
-                <tr key={candidate.id} className={index % 2 === 0 ? 'bg-green-100' : 'bg-green-200'}>
+                <tr key={candidate.id} className={index % 2 === 0 ? 'bg-[#6B8A7A]' : 'bg-[#B7B597]'}>
                   <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.firstName} {candidate.lastName}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.specialization}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.email}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.job_location}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-green-950 font-medium">{candidate.salaryExpectation}</td>
-                  <td className="px-6 py-4 whitespace-nowrap underline text-blue-600 font-medium">
+                  <td className="px-6 py-4 whitespace-nowrap underline text-black font-medium">
                     <a target="_blank" href={candidate.cv} download={`${candidate.firstName}-${candidate.lastName}-Resume.pdf`}>View</a>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap font-medium text-green-600 cursor-pointer flex text-xl">
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-black cursor-pointer flex text-xl">
                     <FaUserEdit className="hover:text-indigo-900" />&nbsp;&nbsp;
                     <MdDeleteForever className="hover:text-indigo-900" />&nbsp;&nbsp;
                     <BiShowAlt className="hover:text-indigo-900" />

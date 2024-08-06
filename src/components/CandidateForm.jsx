@@ -103,7 +103,7 @@ const CandidateForm = () => {
                     <form onSubmit={handleSubmit} className="space-y-4 mt-3">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="block">
-                                <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>
+                                <label htmlFor="firstName" className="block text-sm font-medium text-black">First Name</label>
                                 <input
                                     type="text"
                                     id="firstName"
@@ -115,7 +115,7 @@ const CandidateForm = () => {
                                 />
                             </div>
                             <div className="block">
-                                <label htmlFor="lastName" className="block text-sm font-medium text-gray-600">Last Name</label>
+                                <label htmlFor="lastName" className="block text-sm font-medium text-black">Last Name</label>
                                 <input
                                     type="text"
                                     id="lastName"
@@ -129,7 +129,7 @@ const CandidateForm = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="block">
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
+                                <label htmlFor="email" className="block text-sm font-medium text-black">Email</label>
                                 <input
                                     type="email"
                                     id="email"
@@ -141,7 +141,7 @@ const CandidateForm = () => {
                                 />
                             </div>
                             <div className="block">
-                                <label htmlFor="contact" className="block text-sm font-medium text-gray-600">Contact</label>
+                                <label htmlFor="contact" className="block text-sm font-medium text-black">Contact</label>
                                 <input
                                     type="tel"
                                     id="contact"
@@ -155,40 +155,40 @@ const CandidateForm = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                             <div className="block">
-                                <label className="block text-sm font-medium text-gray-600">Gender</label>
+                                <label className="block text-sm font-medium text-black">Gender</label>
                                 <div className="mt-1 flex space-x-4">
-                                    <label className="flex items-center text-gray-600">
+                                    <label className="flex items-center text-black">
                                         <input
                                             type="radio"
                                             name="gender"
                                             value="male"
                                             checked={formData.gender === 'male'}
                                             onChange={handleChange}
-                                            className="h-4 w-4 text-gray-600 focus:ring-indigo-500 border-black"
+                                            className="h-4 w-4 text-black focus:ring-indigo-500 border-black"
                                             required
                                         />
                                         <span className="ml-2 text-sm">Male</span>
                                     </label>
-                                    <label className="flex items-center text-gray-600">
+                                    <label className="flex items-center text-black">
                                         <input
                                             type="radio"
                                             name="gender"
                                             value="female"
                                             checked={formData.gender === 'female'}
                                             onChange={handleChange}
-                                            className="h-4 w-4 text-gray-600 focus:ring-indigo-500 border-black"
+                                            className="h-4 w-4 text-black focus:ring-indigo-500 border-black"
                                             required
                                         />
                                         <span className="ml-2 text-sm">Female</span>
                                     </label>
-                                    <label className="flex items-center text-gray-600">
+                                    <label className="flex items-center text-black">
                                         <input
                                             type="radio"
                                             name="gender"
                                             value="other"
                                             checked={formData.gender === 'other'}
                                             onChange={handleChange}
-                                            className="h-4 w-4 text-gray-600 focus:ring-indigo-500 border-black"
+                                            className="h-4 w-4 text-black focus:ring-indigo-500 border-black"
                                             required
                                         />
                                         <span className="ml-2 text-sm">Other</span>
@@ -196,7 +196,7 @@ const CandidateForm = () => {
                                 </div>
                             </div>
                             <div className="block">
-                                <label htmlFor="job_location" className="block text-sm font-medium text-gray-600">Job Location</label>
+                                <label htmlFor="job_location" className="block text-sm font-medium text-black">Job Location</label>
                                 <input
                                     type="text"
                                     id="job_location"
@@ -210,7 +210,7 @@ const CandidateForm = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                             <div className="block">
-                                <label htmlFor="specialization" className="block text-sm font-medium text-gray-600">Specialization</label>
+                                <label htmlFor="specialization" className="block text-sm font-medium text-black">Specialization</label>
                                 <input
                                     type="text"
                                     id="specialization"
@@ -222,7 +222,7 @@ const CandidateForm = () => {
                                 />
                             </div>
                             <div className="block mb-3">
-                                <label htmlFor="salaryExpectation" className="block text-sm font-medium text-gray-600">Salary Expectation</label>
+                                <label htmlFor="salaryExpectation" className="block text-sm font-medium text-black">Salary Expectation</label>
                                 <input
                                     type="number"
                                     id="salaryExpectation"
@@ -234,7 +234,7 @@ const CandidateForm = () => {
                                 />
                             </div>
                         </div>
-                        <label htmlFor="image-upload" className='text-gray-600 font-medium'>Upload your Resume</label>
+                        <label htmlFor="image-upload" className='text-black font-medium'>Upload your Resume</label>
                         <div className="flex justify-center items-center border-dashed border-2 border-gray-500 rounded p-4 text-center cursor-pointer mb-4 mt-2">
                             <label htmlFor="file-upload" className="text-blue-500">
                                 <input

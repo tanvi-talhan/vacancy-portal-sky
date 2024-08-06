@@ -31,7 +31,7 @@ const SearchBar = ({ value, onChange }) => (
 );
 
 const Card = ({ vacancy, onEdit, onDelete }) => (
-  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 border bg-white w-full h-full bg-opacity-80">
+  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 border bg-[#B7B597] w-full h-full bg-opacity-80">
     <div className="flex justify-end items-center mb-2">
       <a title='Edit' onClick={() => onEdit(vacancy)}><CiEdit className='text-3xl text-green-600 cursor-pointer' /></a>&nbsp;
       <a title='Delete' onClick={() => onDelete(vacancy.id)}><TiDelete className='text-3xl text-red-600 cursor-pointer' /></a>
@@ -108,7 +108,7 @@ const Home = () => {
       <div className="container py-12 bg-cover bg-no-repeat bg-center max-w-full min-h-screen flex flex-col items-center" style={{ backgroundImage: `url(${Bgimage})` }}>
         <SearchBar value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <div className="flex flex-col items-center mt-8">
-          <span className="sticky top-0  px-2 py-1 text-2xl font-bold text-black rounded-full s text-shadow-custom ">
+          <span className="sticky top-0  px-2 py-1 text-2xl font-bold text-black rounded-full ">
             New Vacancies
           </span>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 w-full max-w-5xl mt-4 px-4">
