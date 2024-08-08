@@ -71,7 +71,7 @@ const Card = ({ vacancy, onEdit, onDelete }) => (
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [vacancies, setVacancies] = useState([]);
+  const [vacancies, setVacancies] = useState([]);z
 
   useEffect(() => {
     const fetchVacancies = async () => {
