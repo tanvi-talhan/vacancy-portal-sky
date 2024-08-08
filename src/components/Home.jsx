@@ -13,21 +13,22 @@ import { TiDelete } from "react-icons/ti";
 
 const SearchBar = ({ value, onChange }) => (
   <div className="relative mt-4">
-    <div className="flex justify-center">
-      <div className="max-w-9xl w-full mx-6 sm:mx-6 md:mx-16 lg:mx-80">
-        <div className="flex items-center bg-yellow-200 border rounded-full p-2 bg-opacity-0">
-          <input
-            type="text"
-            placeholder="search for vacancies..."
-            value={value}
-            onChange={onChange}
-            className="p-1 outline-none text-sm w-full bg-transparent text-black font-bol"
-          />
-          <span className="relative right-2 top-3 transform -translate-y-1/2 text-green-500 text-xl">&#x1F50D;</span>
-        </div>
+  <div className="flex justify-center">
+    <div className="max-w-9xl w-full mx-6 sm:mx-6 md:mx-16 lg:mx-80">
+      <div className="flex items-center border rounded-full p-2 bg-black bg-opacity-75">
+        <input
+          type="text"
+          placeholder="search for vacancies..."
+          value={value}
+          onChange={onChange}
+          className="p-1 outline-none text-sm w-full text-white font-bold bg-black"
+        />
+        <span className="relative right-2 top-3 transform -translate-y-1/2 text-white text-xl">&#x1F50D;</span>
       </div>
     </div>
   </div>
+</div>
+
 );
 
 const Card = ({ vacancy, onEdit, onDelete }) => (
