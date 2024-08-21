@@ -1,121 +1,92 @@
-import React, { useState } from 'react';
-import logo1 from '../assets/Home/c1.jpg';
-import logo2 from '../assets/Home/c2.jpg';
-import logo3 from '../assets/Home/c3.jpg';
-import logo4 from '../assets/Home/c4.jpg';
-import logo5 from '../assets/Home/c5.jpeg';
-import logo6 from '../assets/Home/c6.jpg';
-import '../index.css'; // Ensure this path is correct
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../../firebase/firebaseConfig';
+import '../index.css';
+import Footer from './Footer';
+import Bgimage from '../assets/common/bg-img.png';
+import { PiBuildingApartmentFill, PiCurrencyInrDuotone } from "react-icons/pi";
+import { RiHandbagLine } from "react-icons/ri";
+import { IoLocation } from "react-icons/io5";
+import { MdContactMail, MdContactPhone } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
+import { TiDelete } from "react-icons/ti";
 
-
-// SearchBar Component
-const SearchBar = ({ value, onChange }) => {
-  return (
-    <div className="relative mt-4">
-      <div className="flex justify-center">
-        <div className="max-w-9xl w-full mx-6 sm:mx-6 md:mx-16 lg:mx-80">
-          <div className="flex items-center bg-green-50 border rounded-full p-2">
-            <input
-              type="text"
-              placeholder="search for vacancies..."
-              value={value}
-              onChange={onChange}
-              className="p-1 outline-none text-sm w-full bg-transparent text-white"
-            />
-            <span className="relative right-2 top-3 transform -translate-y-1/2 text-green-500 text-xl">&#x1F50D;</span>
-          </div>
-        </div>
+const SearchBar = ({ value, onChange }) => (
+  <div className="relative mt-4">
+  <div className="flex justify-center">
+    <div className="max-w-9xl w-full mx-6 sm:mx-6 md:mx-16 lg:mx-80">
+      <div className="flex items-center border rounded-full p-2 bg-black bg-opacity-75">
+        <input
+          type="text"
+          placeholder="search for vacancies..."
+          value={value}
+          onChange={onChange}
+          className="p-1 outline-none text-sm w-full text-white font-bold bg-black"
+        />
+        <span className="relative right-2 top-3 transform -translate-y-1/2 text-white text-xl">&#x1F50D;</span>
       </div>
     </div>
-  );
-};
+  </div>
+</div>
 
+);
 
-// Card Component
-const Card = ({ img, title, description }) => {
-  return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <div className="flex flex-col items-center">
-        {img}
-        <h2 className="mt-4 text-xl text-center font-bold text-gray-800">{title}</h2>
-        <p className="mt-2 text-gray-600 justify-center text-sm">{description}</p>
+const Card = ({ vacancy, onEdit, onDelete }) => (
+  <div className="rounded-lg shadow-2xl p-4 md:p-6 lg:p-8 border bg-[#B7B597] w-full h-full bg-opacity-80">
+    <div className="flex justify-end items-center mb-2">
+      <a title='Edit' onClick={() => onEdit(vacancy)}><CiEdit className='text-3xl text-green-600 cursor-pointer' /></a>&nbsp;
+      <a title='Delete' onClick={() => onDelete(vacancy.id)}><TiDelete className='text-3xl text-red-600 cursor-pointer' /></a>
+    </div>
+    <div className="flex justify-between items-center mb-2">
+      <h2 className="text-lg md:text-xl lg:text-2xl font-bold ">{vacancy.designation}</h2>
+    </div>
+    <p className="text-gray-600 flex items-center text-sm md:text-base mb-2"><PiBuildingApartmentFill />&nbsp;<span>{vacancy.companyName}</span></p>
+    <p className="text-gray-800 md:text-base mb-2">
+      <span className='text-sm block truncate'>{vacancy.jobDescription}</span>
+    </p>
+    <div className="items-center my-2">
+      <div className="flex items-center mb-1">
+        <MdContactPhone />&nbsp;<span>{vacancy.hrContact}</span>
+      </div>
+      <div className="flex items-center mb-1">
+        <MdContactMail />&nbsp;<span>{vacancy.hrEmail}</span>
       </div>
     </div>
-  );
-};
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <div className="flex items-center">
+        <RiHandbagLine />
+        <span className="ml-2">{vacancy.jobType}</span>
+      </div>
+      <div className="flex items-center">
+        <PiCurrencyInrDuotone />
+        <span className="ml-2">{vacancy.salary} P.A.</span>
+      </div>
+      <div className="flex items-center">
+        <IoLocation />
+        <span className="ml-2">{vacancy.location}</span>
+      </div>
+    </div>
+  </div>
+);
 
 // Home Component
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [vacancies, setVacancies] = useState([]);z
 
-  const cards = [
-    {
-      img: (
-        <img
-          alt="Card 1"
-          src={logo1}
-          className="h-96 w-auto rounded-lg"
-        />
-      ),
-      title: 'Noteworthy Technology Acquisitions 2021',
-      description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-    },
-    {
-      img: (
-        <img
-          alt="Card 2"
-          src={logo2}
-          className="h-96 w-auto rounded-lg"
-        />
-      ),
-      title: 'Card 2 Title',
-      description: 'Card 2 description',
-    },
-    {
-      img: (
-        <img
-          alt="Card 3"
-          src={logo3}
-          className="h-96 w-auto rounded-lg"
-        />
-      ),
-      title: 'Card 3 Title',
-      description: 'Card 3 description',
-    },
-    {
-      img: (
-        <img
-          alt="Card 4"
-          src={logo4}
-          className="h-96 w-auto rounded-lg"
-        />
-      ),
-      title: 'Card 4 Title',
-      description: 'Card 4 description',
-    },
-    {
-      img: (
-        <img
-          alt="Card 5"
-          src={logo5}
-          className="h-96 w-auto rounded-lg"
-        />
-      ),
-      title: 'Card 5 Title',
-      description: 'Card 5 description',
-    },
-    {
-      img: (
-        <img
-          alt="Card 6"
-          src={logo6}
-          className="h-96 w-auto rounded-lg"
-        />
-      ),
-      title: 'Card 6 Title',
-      description: 'Card 6 description',
-    },
-  ];
+  useEffect(() => {
+    const fetchVacancies = async () => {
+      const querySnapshot = await getDocs(collection(db, 'vacancies'));
+      const fetchedVacancies = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      // Sort vacancies by timestamp in descending order
+      fetchedVacancies.sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate());
+
+      setVacancies(fetchedVacancies);
+    };
+
+    fetchVacancies();
+  }, []);
 
   const filteredCards = cards.filter(card =>
     card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
